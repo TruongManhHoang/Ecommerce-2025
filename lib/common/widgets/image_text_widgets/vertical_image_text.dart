@@ -43,7 +43,7 @@ class TVerticalImageText extends StatelessWidget {
                     ? CachedNetworkImage(
                         imageUrl: imageUrl,
                         fit: BoxFit.cover,
-                        color: dark ? TColors.light : TColors.dark,
+                        // color: dark ? TColors.light : TColors.dark,
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(),
                         errorWidget: (context, url, error) =>
@@ -52,7 +52,7 @@ class TVerticalImageText extends StatelessWidget {
                     : Image(
                         image: AssetImage(imageUrl),
                         fit: BoxFit.cover,
-                        color: dark ? TColors.light : TColors.dark,
+                        // color: dark ? TColors.light : TColors.dark,
                       ),
               ),
             ),
@@ -78,4 +78,3 @@ class TVerticalImageText extends StatelessWidget {
     );
   }
 }
-

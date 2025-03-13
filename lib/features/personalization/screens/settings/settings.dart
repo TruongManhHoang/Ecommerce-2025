@@ -8,6 +8,7 @@ import 'package:ecommerce_app/features/personalization/screens/address/address.d
 import 'package:ecommerce_app/features/personalization/screens/profile/profile.dart';
 import 'package:ecommerce_app/features/personalization/screens/uploadData/upload_data.dart';
 import 'package:ecommerce_app/features/shop/screens/cart/cart.dart';
+import 'package:ecommerce_app/features/shop/screens/chat_bot/gemini_bot.dart';
 import 'package:ecommerce_app/features/shop/screens/order/order.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
@@ -42,7 +43,9 @@ class SettingsScreen extends StatelessWidget {
                 // ),
 
                 /// -User Profile Card
-                 TUserProfileTitle(onPressed:()=> Get.to(()=> const ProfileScreen()),),
+                TUserProfileTitle(
+                  onPressed: () => Get.to(() => const ProfileScreen()),
+                ),
                 const SizedBox(
                   height: TSizes.spaceBtwSections,
                 ),
@@ -65,7 +68,7 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.safe_home,
                     title: 'My Addresses',
                     subTitle: 'Set shopping delivery address',
-                    onTap: () => Get.to(()=> const UserAddressScreen()),
+                    onTap: () => Get.to(() => const UserAddressScreen()),
                   ),
                   TSettingsMenuTitle(
                     icon: Iconsax.shopping_cart,
@@ -77,7 +80,7 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.bag_tick,
                     title: 'My Orders',
                     subTitle: 'In-progress and Completed Orders',
-                    onTap: () => Get.to(()=> const OrderScreen()),
+                    onTap: () => Get.to(() => const OrderScreen()),
                   ),
                   TSettingsMenuTitle(
                     icon: Iconsax.bank,
@@ -103,10 +106,18 @@ class SettingsScreen extends StatelessWidget {
                     subTitle: 'Manage data usage and connected accounts',
                     onTap: () {},
                   ),
+
                   /// App Setting
-                  const SizedBox(height: TSizes.spaceBtwSections,),
-                  const TSectionHeading(title: 'App Settings', showActionButton: false,),
-                  const SizedBox(height: TSizes.spaceBtwItems,),
+                  const SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
+                  const TSectionHeading(
+                    title: 'App Settings',
+                    showActionButton: false,
+                  ),
+                  const SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
                   TSettingsMenuTitle(
                     icon: Iconsax.document_upload,
                     title: 'Load Data',
@@ -117,28 +128,51 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.location,
                     title: 'Geolocation',
                     subTitle: 'Set recommendation based on location',
-                   trailing: Switch(value: true, onChanged: (value){},),
+                    trailing: Switch(
+                      value: true,
+                      onChanged: (value) {},
+                    ),
                   ),
                   TSettingsMenuTitle(
                     icon: Iconsax.security_user,
                     title: 'Safe Mode',
                     subTitle: 'Search result it safe for all ages',
-                    trailing: Switch(value: false,onChanged: (value){},),
+                    trailing: Switch(
+                      value: false,
+                      onChanged: (value) {},
+                    ),
                   ),
                   TSettingsMenuTitle(
                     icon: Iconsax.image,
                     title: 'HD Image Quality',
                     subTitle: 'Set image quality to be seen',
-                   trailing: Switch(value: false, onChanged: (value){},),
+                    trailing: Switch(
+                      value: false,
+                      onChanged: (value) {},
+                    ),
+                  ),
+                  TSettingsMenuTitle(
+                    icon: Iconsax.image,
+                    title: 'Gemini Bot',
+                    subTitle: 'Set image quality to be seen',
+                    onTap: () => Get.to(() => const GeminiBot()),
                   ),
 
                   ///Logout Button
-                  const SizedBox(height: TSizes.spaceBtwSections,),
+                  const SizedBox(
+                    height: TSizes.spaceBtwSections,
+                  ),
                   SizedBox(
                     width: double.infinity,
-                    child: OutlinedButton(onPressed: ()=> AuthenticationRepository.instance.logoutConfirmation(), child: const Text('Logout'),),
+                    child: OutlinedButton(
+                      onPressed: () => AuthenticationRepository.instance
+                          .logoutConfirmation(),
+                      child: const Text('Logout'),
+                    ),
                   ),
-                  const SizedBox(height: TSizes.spaceBtwSections *2.5,)
+                  const SizedBox(
+                    height: TSizes.spaceBtwSections * 2.5,
+                  )
                 ],
               ),
             )
