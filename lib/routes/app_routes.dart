@@ -1,6 +1,3 @@
-
-
-
 import 'package:ecommerce_app/features/authentication/screens/onboarding/onboarding.dart';
 import 'package:ecommerce_app/features/authentication/screens/password_configuration/forget_password.dart';
 import 'package:ecommerce_app/features/authentication/screens/signup/sign_up.dart';
@@ -9,6 +6,7 @@ import 'package:ecommerce_app/features/personalization/screens/address/address.d
 import 'package:ecommerce_app/features/personalization/screens/profile/profile.dart';
 import 'package:ecommerce_app/features/personalization/screens/settings/settings.dart';
 import 'package:ecommerce_app/features/shop/screens/cart/cart.dart';
+import 'package:ecommerce_app/features/shop/screens/chat_bot/gemini_bot.dart';
 import 'package:ecommerce_app/features/shop/screens/checkout/checkout.dart';
 import 'package:ecommerce_app/features/shop/screens/home/home.dart';
 import 'package:ecommerce_app/features/shop/screens/order/order.dart';
@@ -24,7 +22,8 @@ class AppRoutes {
     GetPage(name: TRoutes.store, page: () => const StoreScreen()),
     GetPage(name: TRoutes.favourites, page: () => const FavoriteScreen()),
     GetPage(name: TRoutes.settings, page: () => const SettingsScreen()),
-    GetPage(name: TRoutes.productReviews, page: () => const ProductReviewScreen()),
+    GetPage(
+        name: TRoutes.productReviews, page: () => const ProductReviewScreen()),
     GetPage(name: TRoutes.order, page: () => const OrderScreen()),
     GetPage(name: TRoutes.checkout, page: () => const CheckoutScreen()),
     GetPage(name: TRoutes.cart, page: () => const CartScreen()),
@@ -34,7 +33,6 @@ class AppRoutes {
     GetPage(name: TRoutes.verifyEmail, page: () => const VerifyEmailScreen()),
     GetPage(name: TRoutes.forgetPassword, page: () => const ForgetPassword()),
     GetPage(name: TRoutes.onBoarding, page: () => const OnBoardingScreen()),
-
-
+    GetPage(name: TRoutes.geminiBot, page: () => const GeminiBot()),
   ];
 }
