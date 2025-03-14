@@ -20,54 +20,59 @@ class TPromoSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(BannerController());
     return Obx(() {
+      if (controller.isLoading.value)
+        return const TShimmerEffect(width: double.infinity, height: 190);
 
-      if(controller.isLoading.value) return const TShimmerEffect(width: double.infinity, height: 190);
-
-     if(controller.banners.isEmpty){
-       return const Center(child: Text('No data Found!'),);
-     }else {
-       return Column(
-         children: [
-           CarouselSlider(
-               options: CarouselOptions(
-                   viewportFraction: 1,
-                   onPageChanged: (index, _) =>
-                       controller.updatePageIndicator(index)),
-               items: controller.banners
-                   .map(
-                     (banner) =>
-                     TRoundedImage(
-                       imageUrl: banner.imageUrl,
-                       isNetworkImage: true,
-                       onPressed: () => Get.toNamed(banner.targetScreen),
-                     ),
-               ).toList()
-           ),
-           const SizedBox(
-             height: TSizes.spaceBtwItems,
-           ),
-           Center(
-             child: Obx(() =>
-                 Row(
-                   mainAxisSize: MainAxisSize.min,
-                   children: [
-                     for (int i = 0; i < controller.banners.length; i++)
-                       TCircularContainer(
-                         width: 20,
-                         height: 4,
-                         margin: const EdgeInsets.only(right: 10),
-                         backgroundColor:
-                         controller.carousalCurrentIndex.value == i
-                             ? TColors.primary
-                             : TColors.grey,
-                       )
-                   ],
-                 )),
-           )
-         ],
-       );
-     }
-    }
-    );
+      if (controller.banners.isEmpty) {
+        return const Center(
+          child: Text('No data Found!'),
+        );
+      } else {
+        return Column(
+          children: [
+            CarouselSlider(
+              options: CarouselOptions(
+                viewportFraction: 1,
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 3),
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                onPageChanged: (index, _) =>
+                    controller.updatePageIndicator(index),
+              ),
+              items: controller.banners
+                  .map(
+                    (banner) => TRoundedImage(
+                      imageUrl: banner.imageUrl,
+                      isNetworkImage: true,
+                      onPressed: () => Get.toNamed(banner.targetScreen),
+                    ),
+                  )
+                  .toList(),
+            ),
+            const SizedBox(
+              height: TSizes.spaceBtwItems,
+            ),
+            Center(
+              child: Obx(() => Wrap(
+                    spacing: 10, // Khoảng cách giữa các chấm tròn
+                    alignment: WrapAlignment.center,
+                    children: [
+                      for (int i = 0; i < controller.banners.length; i++)
+                        TCircularContainer(
+                          width: 20,
+                          height: 4,
+                          backgroundColor:
+                              controller.carousalCurrentIndex.value == i
+                                  ? TColors.primary
+                                  : TColors.grey,
+                        )
+                    ],
+                  )),
+            )
+          ],
+        );
+      }
+    });
   }
 }

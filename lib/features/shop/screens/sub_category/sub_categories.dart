@@ -59,47 +59,54 @@ class SubCategoriesScreen extends StatelessWidget {
                       itemBuilder: (_, index) {
                         final subCategory = subCategories[index];
                         return FutureBuilder(
-                          future: controller.getCategoryProducts(categoryId: subCategory.id),
-                          builder: (context, snapshot) {
+                            future: controller.getCategoryProducts(
+                                categoryId: subCategory.id),
+                            builder: (context, snapshot) {
+                              ///Handle loader, No record, or error message
+                              final widget =
+                                  TCloudHelperFunctions.checkMultiRecordState(
+                                      snapshot: snapshot, loader: loader);
+                              if (widget != null) return widget;
 
-                            ///Handle loader, No record, or error message
-                            final widget = TCloudHelperFunctions.checkMultiRecordState(
-                                snapshot: snapshot, loader: loader);
-                            if (widget != null) return widget;
-                            ///Record found
-                            final products = snapshot.data!;
-                            return Column(
-                              children: [
-                                ///Heading
-                                TSectionHeading(
-                                  title: subCategory.name,
-                                  onPressed: () => Get.to(() => AllProducts(
-                                        title: subCategory.name,
-                                        futureMethod: controller.getCategoryProducts(categoryId: subCategory.id,limit: -1),
-                                      )),
-                                ),
-                                const SizedBox(
-                                  height: TSizes.spaceBtwItems / 2,
-                                ),
-                                SizedBox(
-                                  height: 120,
-                                  child: ListView.separated(
-                                    itemCount: products.length,
-                                    separatorBuilder: (context, index) =>
-                                        const SizedBox(
-                                      width: TSizes.spaceBtwItems,
-                                    ),
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) =>
-                                         TProductCardHorizontal(product: products[index]),
+                              ///Record found
+                              final products = snapshot.data!;
+                              return Column(
+                                children: [
+                                  ///Heading
+                                  TSectionHeading(
+                                    title: subCategory.name,
+                                    onPressed: () => Get.to(() => AllProducts(
+                                          title: subCategory.name,
+                                          futureMethod:
+                                              controller.getCategoryProducts(
+                                                  categoryId: subCategory.id,
+                                                  limit: -1),
+                                        )),
                                   ),
-                                ),
+                                  const SizedBox(
+                                    height: TSizes.spaceBtwItems / 2,
+                                  ),
+                                  SizedBox(
+                                    height: 120,
+                                    child: ListView.separated(
+                                      itemCount: products.length,
+                                      separatorBuilder: (context, index) =>
+                                          const SizedBox(
+                                        width: TSizes.spaceBtwItems,
+                                      ),
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) =>
+                                          TProductCardHorizontal(
+                                              product: products[index]),
+                                    ),
+                                  ),
 
-                                const SizedBox(height: TSizes.spaceBtwSections,)
-                              ],
-                            );
-                          }
-                        );
+                                  const SizedBox(
+                                    height: TSizes.spaceBtwSections,
+                                  )
+                                ],
+                              );
+                            });
                       },
                     );
                   })
