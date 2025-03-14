@@ -41,6 +41,7 @@ dependencies:
   google_generative_ai: ^0.4.6
   flutter_stripe: ^11.0.0
   dio: ^5.5.0
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +63,7 @@ flutter:
     - assets/images/animations/
     - assets/icons/payment_methods/
     - assets/images/on_boarding_images/
+    - .env
 
   fonts:
     - family: Poppins
