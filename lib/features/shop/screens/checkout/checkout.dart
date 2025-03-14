@@ -1,6 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:ecommerce_app/common/widgets/appbar/app_bar.dart';
 import 'package:ecommerce_app/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:ecommerce_app/common/widgets/product/cart/coupon_widget.dart';
+import 'package:ecommerce_app/data/service/stripe_sevice.dart';
 import 'package:ecommerce_app/features/shop/controller/product/cart_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/product/order_controller.dart';
 import 'package:ecommerce_app/features/shop/screens/cart/widgets/cart_items.dart';
@@ -11,12 +13,16 @@ import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:ecommerce_app/utils/helpers/pricing_calculator.dart';
-import 'package:ecommerce_app/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
 
-class CheckoutScreen extends StatelessWidget {
+class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
 
+  @override
+  State<CheckoutScreen> createState() => _CheckoutScreenState();
+}
+
+class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
@@ -25,75 +31,84 @@ class CheckoutScreen extends StatelessWidget {
     final orderController = OrderController.instance;
     final totalAmount = TPricingCalculator.calculateTotalPrice(subTotal, 'US');
     return Scaffold(
-        appBar: TAppBar(
-            showBackArrow: true,
-            title: Text(
-              'Order Review',
-              style: Theme.of(context).textTheme.headlineSmall,
-            )),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(TSizes.defaultSpace),
-            child: Column(
-              children: [
-                ///Items in cart
-                const TCartItems(
-                  showAddRemoveButtons: false,
+      appBar: TAppBar(
+          showBackArrow: true,
+          title: Text(
+            'Order Review',
+            style: Theme.of(context).textTheme.headlineSmall,
+          )),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          child: Column(
+            children: [
+              ///Items in cart
+              const TCartItems(
+                showAddRemoveButtons: false,
+              ),
+              const SizedBox(
+                height: TSizes.spaceBtwSections,
+              ),
+
+              /// Coupon TextField
+              const TCouponCode(),
+              const SizedBox(
+                height: TSizes.spaceBtwSections,
+              ),
+
+              ///Billing Section
+              TRoundedContainer(
+                showBorder: true,
+                padding: const EdgeInsets.all(TSizes.md),
+                backgroundColor: dark ? TColors.black : TColors.white,
+                child: const Column(
+                  children: [
+                    ///Pricing
+                    TBillingAmountSection(),
+                    SizedBox(
+                      height: TSizes.spaceBtwItems,
+                    ),
+
+                    ///Divider
+                    Divider(),
+                    SizedBox(
+                      height: TSizes.spaceBtwItems,
+                    ),
+
+                    ///Payment Method
+                    TBillingPaymentSection(),
+                    SizedBox(
+                      height: TSizes.spaceBtwItems,
+                    ),
+
+                    ///Address
+                    TBillingAddressSection(),
+                  ],
                 ),
-                const SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
-
-                /// Coupon TextField
-                const TCouponCode(),
-                const SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
-
-                ///Billing Section
-                TRoundedContainer(
-                  showBorder: true,
-                  padding: const EdgeInsets.all(TSizes.md),
-                  backgroundColor: dark ? TColors.black : TColors.white,
-                  child: const Column(
-                    children: [
-                      ///Pricing
-                      TBillingAmountSection(),
-                      SizedBox(
-                        height: TSizes.spaceBtwItems,
-                      ),
-
-                      ///Divider
-                      Divider(),
-                      SizedBox(
-                        height: TSizes.spaceBtwItems,
-                      ),
-
-                      ///Payment Method
-                      TBillingPaymentSection(),
-                      SizedBox(
-                        height: TSizes.spaceBtwItems,
-                      ),
-
-                      ///Address
-                      TBillingAddressSection(),
-                    ],
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
+      ),
 
-        ///Checkout Button
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
-          child: ElevatedButton(
-            onPressed: subTotal > 0 ?
-            () => orderController.processOrder(totalAmount)
-            : () => TLoaders.warningSnackBar(title: 'Empty Cart',message: 'Add items in the cart in order to proceed.'),
-            child:  Text('Checkout \$$totalAmount'),
-          ),
-        ));
+      ///Checkout Button
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          onPressed: () async {
+            final paymentSuccess =
+                await StripeService.instance.initializePaymentSheet(
+              totalAmount.toInt().toString(),
+              "USD",
+            );
+
+            if (paymentSuccess) {
+              return orderController.processOrder(totalAmount);
+            }
+          },
+          child: Text('Checkout ${totalAmount.toString()}'),
+        ),
+      ),
+    );
   }
 }
