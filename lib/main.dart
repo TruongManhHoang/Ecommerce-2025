@@ -1,7 +1,9 @@
 import 'package:ecommerce_app/data/repositories/authentication/authentication_repository.dart';
+import 'package:ecommerce_app/data/service/consts.dart';
 import 'package:ecommerce_app/utils/local_storage/storage_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'app.dart';
@@ -18,6 +20,9 @@ Future<void> main() async {
   //Todo: Await Native Splash
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   //Todo: Initialize Firebase
+
+  Stripe.publishableKey = stripePublishableKey;
+  await Stripe.instance.applySettings();
 
   FirebaseOptions firebaseOptions = DefaultFirebaseOptions.currentPlatform;
   print("🔥 Firebase đang kết nối với: ${firebaseOptions.projectId}");
