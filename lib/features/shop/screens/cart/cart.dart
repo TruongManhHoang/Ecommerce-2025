@@ -16,7 +16,7 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller =CartController.instance;
+    final controller = CartController.instance;
     return Scaffold(
       appBar: TAppBar(
           showBackArrow: true,
@@ -38,20 +38,22 @@ class CartScreen extends StatelessWidget {
         } else {
           return const SingleChildScrollView(
             child: Padding(
-                  padding: EdgeInsets.all(TSizes.defaultSpace),
-                  child: TCartItems(),
-                ),
+              padding: EdgeInsets.all(TSizes.defaultSpace),
+              child: TCartItems(),
+            ),
           );
-
         }
       }),
-      bottomNavigationBar: controller.cartItems.isEmpty ? const SizedBox() : Padding(
-        padding: const EdgeInsets.all(TSizes.defaultSpace),
-        child: ElevatedButton(
-          onPressed: () => Get.to(() => const CheckoutScreen()),
-          child:  Obx(()=> Text('Checkout \$${controller.totalCartPrice.value}')),
-        ),
-      ),
+      bottomNavigationBar: controller.cartItems.isEmpty
+          ? const SizedBox()
+          : Padding(
+              padding: const EdgeInsets.all(TSizes.defaultSpace),
+              child: ElevatedButton(
+                onPressed: () => Get.to(() => const CheckoutScreen()),
+                child: Obx(() =>
+                    Text('Checkout \$${controller.totalCartPrice.value}')),
+              ),
+            ),
     );
   }
 }

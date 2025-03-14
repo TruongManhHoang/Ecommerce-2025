@@ -8,8 +8,9 @@ import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
-class TBrandCart extends StatelessWidget{
-  const TBrandCart({super.key, required this.showBorder, this.onTap, required this.brand});
+class TBrandCart extends StatelessWidget {
+  const TBrandCart(
+      {super.key, required this.showBorder, this.onTap, required this.brand});
 
   final bool showBorder;
   final void Function()? onTap;
@@ -30,19 +31,25 @@ class TBrandCart extends StatelessWidget{
             Flexible(
               child: TCircularImage(
                 image: brand.image,
+
                 isNetworkImage: true,
                 backgroundColor: Colors.transparent,
-                overlayColor: isDark? TColors.white : TColors.black,
+                // overlayColor: isDark? TColors.white : TColors.black,
               ),
             ),
-            const SizedBox(width: TSizes.spaceBtwItems /2,),
+            const SizedBox(
+              width: TSizes.spaceBtwItems / 2,
+            ),
             //Text
             Expanded(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   TBrandTitleTextWithVerifiedIcon(title: brand.name, brandTextSize: TextSizes.large,),
+                  TBrandTitleTextWithVerifiedIcon(
+                    title: brand.name,
+                    brandTextSize: TextSizes.large,
+                  ),
                   Text(
                     '${brand.productsCount ?? 0} products',
                     overflow: TextOverflow.ellipsis,
@@ -56,5 +63,4 @@ class TBrandCart extends StatelessWidget{
       ),
     );
   }
-
 }

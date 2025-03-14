@@ -35,34 +35,50 @@ class FavoriteScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
-          child: Obx(
-              ()=> FutureBuilder(
-              future: controller.favoriteProducts(),
-              builder: (context, snapshot) {
-            
-                ///Nothing Found Widget...
-                final emptyWidget = TAnimationLoaderWidget(
-                  text: 'Whoops! Wishlist is Empty...',
-                  animation: TImages.pencilAnimation,
-                  showAction: true,
-                  actionText: 'Let\'s add some',
-                  onActionPressed: () => Get.offAll(() => const NavigationMenu()),
-                );
-                const loader = TVerticalProductShimmer(itemCount: 6,);
-                final widget = TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot,loader: loader, nothingFound: emptyWidget);
-                if(widget != null) return widget;
-            
-                final products = snapshot.data!;
-            
-                return TGridLayout(
-                    itemCount: products.length,
-                    itemBuilder: (_, index) =>
-                        TProductCardVertical(product: products[index]));
-              },
-            ),
-          ),
-        ),
+            padding: const EdgeInsets.all(TSizes.defaultSpace),
+            child: Obx(() {
+              /// Widget hiển thị khi không có sản phẩm
+              final emptyWidget = TAnimationLoaderWidget(
+                text: 'Whoops! Favorite is Empty...',
+                animation: TImages.cartAnimation,
+                showAction: true,
+                actionText: 'Let\'s fill it',
+                onActionPressed: () => Get.offAll(() => const NavigationMenu()),
+              );
+
+              /// Nếu danh sách rỗng, hiển thị emptyWidget
+              if (controller.favorites.isEmpty) {
+                return emptyWidget;
+              }
+
+              /// Nếu có dữ liệu, hiển thị danh sách sản phẩm
+              return FutureBuilder(
+                future: controller.favoriteProducts(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const TVerticalProductShimmer(itemCount: 6);
+                  }
+
+                  if (snapshot.hasError) {
+                    return const Center(child: Text('Lỗi khi tải dữ liệu'));
+                  }
+
+                  final products = snapshot.data ?? [];
+
+                  if (products.isEmpty) {
+                    return emptyWidget;
+                  }
+
+                  return SingleChildScrollView(
+                    child: TGridLayout(
+                      itemCount: products.length,
+                      itemBuilder: (_, index) =>
+                          TProductCardVertical(product: products[index]),
+                    ),
+                  );
+                },
+              );
+            })),
       ),
     );
   }

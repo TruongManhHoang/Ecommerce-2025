@@ -13,8 +13,8 @@ class TCircularImage extends StatelessWidget {
       this.isNetworkImage = false,
       this.overlayColor,
       this.backgroundColor,
-      this.width = 80,
-      this.height = 80,
+      this.width = 50,
+      this.height = 50,
       this.padding = TSizes.sm});
 
   final BoxFit? fit;
@@ -42,20 +42,25 @@ class TCircularImage extends StatelessWidget {
           child: Center(
             child: isNetworkImage
                 ? CachedNetworkImage(
-              fit: fit,
-              color: overlayColor,
-              imageUrl: image,
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-              const TShimmerEffect(width: 80, height: 80, radius: 80,),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            )
+                    fit: fit,
+                    color: overlayColor,
+                    imageUrl: image,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            const TShimmerEffect(
+                      width: 80,
+                      height: 80,
+                      radius: 80,
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  )
                 : Image(
-              fit: fit,
-              image:AssetImage(image),
-              color: overlayColor,
-            ),
+                    fit: fit,
+                    image: AssetImage(image),
+                    color: overlayColor,
+                  ),
           ),
-        )
-    );
+        ));
   }
 }

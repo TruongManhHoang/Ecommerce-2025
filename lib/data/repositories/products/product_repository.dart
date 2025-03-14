@@ -5,6 +5,7 @@ import 'package:ecommerce_app/features/shop/models/product_model.dart';
 import 'package:ecommerce_app/utils/exceptions/firebase_exceptions.dart';
 import 'package:ecommerce_app/utils/exceptions/format_exceptions.dart';
 import 'package:ecommerce_app/utils/exceptions/platform_exceptions.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -73,10 +74,16 @@ class ProductRepository extends GetxController {
     }
   }
 
-  Future<List<ProductModel>> getFavouriteProducts(List<String> productIds) async {
+  Future<List<ProductModel>> getFavouriteProducts(
+      List<String> productIds) async {
     try {
-     final snapshot = await _db.collection('Products').where(FieldPath.documentId, whereIn: productIds).get();
-     return snapshot.docs.map((querySnapshot) =>ProductModel.fromSnapshot(querySnapshot) ).toList();
+      final snapshot = await _db
+          .collection('Products')
+          .where(FieldPath.documentId, whereIn: productIds)
+          .get();
+      return snapshot.docs
+          .map((querySnapshot) => ProductModel.fromSnapshot(querySnapshot))
+          .toList();
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -101,7 +108,9 @@ class ProductRepository extends GetxController {
               .where('Brand.Id', isEqualTo: brandId)
               .limit(limit)
               .get();
-      final products = querySnapshot.docs.map((doc) =>ProductModel.fromSnapshot(doc)).toList();
+      final products = querySnapshot.docs
+          .map((doc) => ProductModel.fromSnapshot(doc))
+          .toList();
       return products;
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
@@ -116,17 +125,36 @@ class ProductRepository extends GetxController {
       {required String categoryId, int limit = 4}) async {
     try {
       QuerySnapshot productCategoryQuery = limit == -1
-          ? await _db.collection('ProductCategory').where('categoryId',isEqualTo: categoryId).get()
-          : await _db.collection('ProductCategory').where('categoryId',isEqualTo: categoryId).limit(limit).get();
+          ? await _db
+              .collection('ProductCategory')
+              .where('categoryId', isEqualTo: categoryId)
+              .get()
+          : await _db
+              .collection('ProductCategory')
+              .where('categoryId', isEqualTo: categoryId)
+              .limit(limit)
+              .get();
+
+      debugPrint("1251-----------------------------------");
 
       //Extract productIds from the documents
-      List<String> productIds = productCategoryQuery.docs.map((doc) =>doc['productId'] as String ).toList();
+      List<String> productIds = productCategoryQuery.docs
+          .map((doc) => doc['productId'] as String)
+          .toList();
+      debugPrint("productIds: $productIds");
 
       //Query to get all document where the brandId is in the list of brandIds FieldPath.documentId to query document in Collection
-      final productsQuery = await _db.collection('Products').where(FieldPath.documentId, whereIn: productIds).get();
+      final productsQuery = await _db
+          .collection('Products')
+          .where(FieldPath.documentId, whereIn: productIds)
+          .get();
 
       //Extract brand names or other relevant data from the documents
-      List<ProductModel> products = productsQuery.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList();
+      List<ProductModel> products = productsQuery.docs
+          .map((doc) => ProductModel.fromSnapshot(doc))
+          .toList();
+
+      debugPrint("Products: $products");
 
       return products;
     } on FirebaseException catch (e) {
@@ -208,9 +236,11 @@ class ProductRepository extends GetxController {
     }
   }
 
-  Future<void>uploadDummyDataProductCategory(List<ProductCategoryModel> productCategory) async {
+  Future<void> uploadDummyDataProductCategory(
+      List<ProductCategoryModel> productCategory) async {
     try {
-      final CollectionReference productCategoryRef = FirebaseFirestore.instance.collection('productCategory');
+      final CollectionReference productCategoryRef =
+          FirebaseFirestore.instance.collection('productCategory');
       for (var item in productCategory) {
         await productCategoryRef.doc().set(item.toJson());
       }
@@ -223,6 +253,5 @@ class ProductRepository extends GetxController {
     } catch (e) {
       throw "Something went wrong. Please try again : $e";
     }
-
   }
 }

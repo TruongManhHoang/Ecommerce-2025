@@ -36,8 +36,7 @@ class TVerticalImageText extends StatelessWidget {
               padding: const EdgeInsets.all(TSizes.sm),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
-                  color: backgroundColor ??
-                      (dark ? TColors.black : TColors.white)),
+                  color: TColors.white),
               child: Center(
                 child: isNetworkImage
                     ? CachedNetworkImage(
@@ -60,17 +59,14 @@ class TVerticalImageText extends StatelessWidget {
             const SizedBox(
               height: TSizes.spaceBtwItems / 2,
             ),
-            SizedBox(
-              width: 55,
-              child: Text(
-                title,
-                style: Theme.of(context)
-                    .textTheme
-                    .labelMedium!
-                    .apply(color: textColor),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
+            Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelMedium!
+                  .apply(color: textColor),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             )
           ],
         ),
