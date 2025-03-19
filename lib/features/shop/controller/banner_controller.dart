@@ -1,7 +1,7 @@
-
 import 'package:ecommerce_app/data/models/dummy_data.dart';
 import 'package:ecommerce_app/data/repositories/banners/banner_repository.dart';
 import 'package:ecommerce_app/features/shop/models/banner_model.dart';
+import 'package:ecommerce_app/features/shop/models/product_model.dart';
 import 'package:ecommerce_app/utils/popups/loaders.dart';
 import 'package:get/get.dart';
 
@@ -19,9 +19,8 @@ class BannerController extends GetxController {
     super.onInit();
   }
 
-  Future<void>fetchBanners() async {
-    try{
-
+  Future<void> fetchBanners() async {
+    try {
       //Show loader while loading categories
       isLoading.value = true;
 
@@ -31,25 +30,24 @@ class BannerController extends GetxController {
 
       //Assign Banners
       this.banners.assignAll(banners);
-
-    }catch(e){
+    } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
-    }finally{
+    } finally {
       isLoading.value = false;
     }
-
   }
-  uploadDummyDataBanners() async{
-    try{
+
+  uploadDummyDataBanners() async {
+    try {
       //Fetch Banner
       final bannerRepo = Get.put(BannerRepository());
       await bannerRepo.uploadDummyData(TDummyData.banners);
-      TLoaders.successSnackBar(title: 'Congratulations',
+      TLoaders.successSnackBar(
+          title: 'Congratulations',
           message: 'Your Dummy Data has been updated!');
     } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
       print('error : $e');
-
     }
   }
 }

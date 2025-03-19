@@ -52,6 +52,7 @@ class SubCategoriesScreen extends StatelessWidget {
 
                     ///Record found
                     final subCategories = snapshot.data!;
+                    debugPrint('Sub Categories: $subCategories');
                     return ListView.builder(
                       shrinkWrap: true,
                       itemCount: subCategories.length,
