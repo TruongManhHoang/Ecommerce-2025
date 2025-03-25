@@ -66,17 +66,16 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(TSizes.defaultSpace),
                 child: Column(
                   children: [
-                    const TPromoSlider(
-                        ),
+                    const TPromoSlider(),
                     const SizedBox(
                       height: TSizes.spaceBtwSections,
                     ),
                     TSectionHeading(
                       title: 'Popular Products',
-                      onPressed: () => Get.to(() =>  AllProducts(
-                        title: 'Popular Products',
-                        futureMethod: controller.fetchAllFeaturedProducts(),
-                      )),
+                      onPressed: () => Get.to(() => AllProducts(
+                            title: 'Popular Products',
+                            futureMethod: controller.fetchAllFeaturedProducts(),
+                          )),
                     ),
                     const SizedBox(
                       height: TSizes.spaceBtwItems,
@@ -95,10 +94,10 @@ class HomeScreen extends StatelessWidget {
                       }
                       return TGridLayout(
                           itemCount: controller.featuredProducts.length,
-                          itemBuilder: (_, index) =>
-                               TProductCardVertical(product: controller.featuredProducts[index],));
+                          itemBuilder: (_, index) => TProductCardVertical(
+                                product: controller.featuredProducts[index],
+                              ));
                     })
-                    // TGridLayout(itemCount: 4, itemBuilder: (_,index)=>  const TProductCardVertical())
                   ],
                 ))
           ],

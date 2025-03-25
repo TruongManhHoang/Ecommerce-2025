@@ -15,8 +15,8 @@ class BrandProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = BrandController.instance;
-    return  Scaffold(
-      appBar:  TAppBar(
+    return Scaffold(
+      appBar: TAppBar(
         title: Text(brand.name),
       ),
       body: SingleChildScrollView(
@@ -25,21 +25,28 @@ class BrandProducts extends StatelessWidget {
           child: Column(
             children: [
               ///Brand  Detail
-              TBrandCart(showBorder: true, brand: brand,),
-              const SizedBox(height: TSizes.spaceBtwSections,),
+              TBrandCart(
+                showBorder: true,
+                brand: brand,
+              ),
+              const SizedBox(
+                height: TSizes.spaceBtwSections,
+              ),
               FutureBuilder(
-                future: controller.getBrandProducts(brandId:brand.id),
-                  builder:(context, snapshot){
+                  future: controller.getBrandProducts(brandId: brand.id),
+                  builder: (context, snapshot) {
+                    ///Handle loader, No Record or error message
+                    const loader = TVerticalProductShimmer();
+                    final widget = TCloudHelperFunctions.checkMultiRecordState(
+                        snapshot: snapshot, loader: loader);
+                    if (widget != null) return widget;
 
-                  ///Handle loader, No Record or error message
-                  const loader = TVerticalProductShimmer();
-                  final widget = TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot,loader: loader);
-                  if(widget != null) return widget;
-
-                  /// Record Found!
-                  final brandProducts = snapshot.data!;
-                  return TSortableProducts(products: brandProducts,);
-                  } )
+                    /// Record Found!
+                    final brandProducts = snapshot.data!;
+                    return TSortableProducts(
+                      products: brandProducts,
+                    );
+                  })
             ],
           ),
         ),

@@ -13,10 +13,19 @@ class THomeCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoryController = Get.put(CategoryController());
-    return Obx((){
-      if(categoryController.isLoading.value) return const TCategoryShimmer();
-      if(categoryController.featuredCategories.isEmpty) {
-        return Center(child: Text('No Data Found!',style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.white),),);
+
+    return Obx(() {
+      if (categoryController.isLoading.value) return const TCategoryShimmer();
+      if (categoryController.featuredCategories.isEmpty) {
+        return Center(
+          child: Text(
+            'No Data Found!',
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .apply(color: Colors.white),
+          ),
+        );
       }
       return SizedBox(
         height: 80,
@@ -30,7 +39,13 @@ class THomeCategories extends StatelessWidget {
                 isNetworkImage: true,
                 imageUrl: category.image,
                 title: category.name,
-                onTap: () => Get.to(() =>  SubCategoriesScreen(category: category,)),
+                onTap: () async {
+                  await categoryController.getCategoryProducts(
+                      categoryId: category.id);
+                  Get.to(() => SubCategoriesScreen(
+                        category: category,
+                      ));
+                },
               );
             }),
       );

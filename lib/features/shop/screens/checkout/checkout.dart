@@ -14,6 +14,7 @@ import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:ecommerce_app/utils/helpers/pricing_calculator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -96,19 +97,40 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
           onPressed: () async {
-            final paymentSuccess =
-                await StripeService.instance.initializePaymentSheet(
-              totalAmount.toInt().toString(),
-              "USD",
-            );
+            // final paymentSuccess =
+            //     await StripeService.instance.initializePaymentSheet(
+            //   totalAmount.toInt().toString(),
+            //   "USD",
+            // );
 
-            if (paymentSuccess) {
-              return orderController.processOrder(totalAmount);
-            }
+            // if (paymentSuccess) {
+            //   return orderController.processOrder(totalAmount);
+            // }
+            handlePayment(totalAmount, 0);
           },
           child: Text('Checkout ${totalAmount.toString()}'),
         ),
       ),
     );
+  }
+
+  void handlePayment(double total, double coupon) async {
+    String? paymentIntent = await StripeService.instance
+        .makePayment(200 - coupon); //dang truyen 200000 mà
+
+    if (paymentIntent != null) {
+      try {
+        await Stripe.instance.presentPaymentSheet();
+      } catch (e) {
+        if (e is StripeException) {
+          print("Lỗi Stripe: ${e.error.localizedMessage}");
+        } else {
+          print("Lỗi không xác định: $e");
+        }
+        // TODO: Xử lý lỗi khi thanh toán thất bại, hiển thị thông báo cho người dùng
+      }
+    } else {
+      print("Không thể khởi tạo thanh toán!");
+    }
   }
 }
