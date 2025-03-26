@@ -12,13 +12,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TCategoryTab extends StatelessWidget {
+class TCategoryTab extends StatefulWidget {
   const TCategoryTab({
     super.key,
     required this.category,
   });
 
   final CategoryModel category;
+
+  @override
+  State<TCategoryTab> createState() => _TCategoryTabState();
+}
+
+class _TCategoryTabState extends State<TCategoryTab> {
+  final categoryController = Get.put(CategoryController());
 
   @override
   Widget build(BuildContext context) {
@@ -31,43 +38,38 @@ class TCategoryTab extends StatelessWidget {
           padding: const EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             children: [
-              CategoryBrands(category: category),
+              CategoryBrands(category: widget.category),
               const SizedBox(
                 height: TSizes.spaceBtwItems,
               ),
-              FutureBuilder(
-                future: controller.getCategoryProducts(categoryId: category.id),
-                builder: (context, snapshot) {
-                  ///Helper Function Handle Loader, No Record, OR Error Message
-                  final response = TCloudHelperFunctions.checkMultiRecordState(
-                      snapshot: snapshot,
-                      loader: const TVerticalProductShimmer());
-                  if (response != null) return response;
+              Obx(() {
+                if (controller.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-                  ///Record Found!
-                  final products = snapshot.data!;
-
-                  return Column(
-                    children: [
-                      TSectionHeading(
-                        title: 'You might like',
-                        onPressed: () => Get.to(AllProducts(
-                          title: category.name,
-                          futureMethod: controller.getCategoryProducts(
-                              categoryId: category.id, limit: -1),
-                        )),
-                      ),
-                      const SizedBox(
-                        height: TSizes.spaceBtwItems,
-                      ),
-                      TGridLayout(
-                          itemCount: products.length,
-                          itemBuilder: (_, index) =>
-                              TProductCardVertical(product: products[index])),
-                    ],
-                  );
-                },
-              ),
+                if (controller.productForCategories.isEmpty) {
+                  return const Center(child: Text('Don\'t have product!'));
+                }
+                return Column(
+                  children: [
+                    TSectionHeading(
+                      title: 'You might like',
+                      onPressed: () => Get.to(AllProducts(
+                        title: widget.category.name,
+                        futureMethod: controller.getCategoryProducts(
+                            categoryId: widget.category.id),
+                      )),
+                    ),
+                    const SizedBox(
+                      height: TSizes.spaceBtwItems,
+                    ),
+                    TGridLayout(
+                        itemCount: controller.productForCategories.length,
+                        itemBuilder: (_, index) => TProductCardVertical(
+                            product: controller.productForCategories[index])),
+                  ],
+                );
+              }),
             ],
           ),
         ),

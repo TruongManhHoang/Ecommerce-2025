@@ -100,14 +100,12 @@ class ProductRepository extends GetxController {
     try {
       final querySnapshot =
           await _db.collection('Products').get(); // Lấy toàn bộ
-      debugPrint(
-          "Fetching products for brand: $querySnapshot ----------------------");
+
       List<ProductModel> products = querySnapshot.docs
           .map((doc) => ProductModel.fromSnapshot(doc))
           .where((product) => product.brand?.id == brandId) // Lọc thủ công
           .toList();
-      debugPrint(
-          "Fetching products for brand: $products ----------------------");
+
       return limit == -1 ? products : products.take(limit).toList();
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
