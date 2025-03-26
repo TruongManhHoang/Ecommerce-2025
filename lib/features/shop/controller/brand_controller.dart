@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_app/data/models/dummy_data.dart';
 import 'package:ecommerce_app/data/repositories/brands/brand_repository.dart';
 import 'package:ecommerce_app/data/repositories/products/product_repository.dart';
@@ -7,11 +6,12 @@ import 'package:ecommerce_app/features/shop/models/product_model.dart';
 import 'package:ecommerce_app/utils/popups/loaders.dart';
 import 'package:get/get.dart';
 
-class BrandController extends GetxController{
+class BrandController extends GetxController {
   static BrandController get instance => Get.find();
   final isLoading = false.obs;
   RxList<BrandModel> allBrands = <BrandModel>[].obs;
   RxList<BrandModel> featuredBrands = <BrandModel>[].obs;
+  RxList<ProductModel> productForBrand = <ProductModel>[].obs;
   final brandRepository = Get.put(BrandRepository());
 
   @override
@@ -20,63 +20,68 @@ class BrandController extends GetxController{
     super.onInit();
   }
 
-  Future<void> getFeaturedBrands() async{
-    try{
+  Future<void> getFeaturedBrands() async {
+    try {
       isLoading.value = true;
       final brands = await brandRepository.getAllBrands();
       allBrands.assignAll(brands);
-      featuredBrands.assignAll(allBrands.where((brand) => brand.isFeatured ?? false).take(4));
-
-    }catch(e){
+      featuredBrands.assignAll(
+          allBrands.where((brand) => brand.isFeatured ?? false).take(4));
+    } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
-    }finally{
+    } finally {
       isLoading.value = false;
     }
   }
-  uploadDummyDataBrands() async{
-    try{
+
+  uploadDummyDataBrands() async {
+    try {
       await brandRepository.uploadDummyData(TDummyData.brands);
-      TLoaders.successSnackBar(title: 'Congratulations',
+      TLoaders.successSnackBar(
+          title: 'Congratulations',
           message: 'Your Dummy Data has been updated!');
     } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
       print('error : $e');
-
     }
   }
-  uploadDummyDataBrandCategory() async{
-    try{
+
+  uploadDummyDataBrandCategory() async {
+    try {
       //Fetch Banner
-      await brandRepository.uploadDummyDataBrandCategory(TDummyData.brandCategory);
-      TLoaders.successSnackBar(title: 'Congratulations',
+      await brandRepository
+          .uploadDummyDataBrandCategory(TDummyData.brandCategory);
+      TLoaders.successSnackBar(
+          title: 'Congratulations',
           message: 'Your Dummy Data has been updated!');
     } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
       print('error : $e');
-
     }
   }
 
   ///Get Brand for Category
-  Future<List<BrandModel>>getBrandsForCategory(String categoryId)async{
-    try{
+  Future<List<BrandModel>> getBrandsForCategory(String categoryId) async {
+    try {
       final brands = await brandRepository.getBrandsForCategory(categoryId);
       return brands;
-    }catch (e) {
+    } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
       return [];
     }
   }
+
   /// Get Brand Specific Products from your data source
-  Future<List<ProductModel>>getBrandProducts(
-      {required String brandId, int limit = -1})async{
-    try{
-      final product = await ProductRepository.instance.getProductsForBrand(brandId: brandId, limit: limit);
+  Future<List<ProductModel>> getBrandProducts(
+      {required String brandId, int limit = -1}) async {
+    try {
+      final product = await ProductRepository.instance
+          .getProductsForBrand(brandId: brandId, limit: limit);
+      productForBrand.assignAll(product);
       return product;
-    }catch (e) {
+    } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
-    return [];
+      return [];
     }
   }
-
 }

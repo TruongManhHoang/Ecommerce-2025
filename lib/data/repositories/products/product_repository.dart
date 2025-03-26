@@ -98,20 +98,17 @@ class ProductRepository extends GetxController {
   Future<List<ProductModel>> getProductsForBrand(
       {required String brandId, int limit = -1}) async {
     try {
-      final querySnapshot = limit == -1
-          ? await _db
-              .collection('Products')
-              .where('Brand.Id', isEqualTo: brandId)
-              .get()
-          : await _db
-              .collection('Products')
-              .where('Brand.Id', isEqualTo: brandId)
-              .limit(limit)
-              .get();
-      final products = querySnapshot.docs
+      final querySnapshot =
+          await _db.collection('Products').get(); // Lấy toàn bộ
+      debugPrint(
+          "Fetching products for brand: $querySnapshot ----------------------");
+      List<ProductModel> products = querySnapshot.docs
           .map((doc) => ProductModel.fromSnapshot(doc))
+          .where((product) => product.brand?.id == brandId) // Lọc thủ công
           .toList();
-      return products;
+      debugPrint(
+          "Fetching products for brand: $products ----------------------");
+      return limit == -1 ? products : products.take(limit).toList();
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on PlatformException catch (e) {
@@ -121,48 +118,61 @@ class ProductRepository extends GetxController {
     }
   }
 
-  Future<List<ProductModel>> getProductsForCategory(
-      {required String categoryId, int limit = 4}) async {
+  Future<List<ProductModel>> getProductsForCategory({
+    required String categoryId,
+    int limit = 4,
+  }) async {
     try {
-      QuerySnapshot productCategoryQuery = limit == -1
-          ? await _db
-              .collection('ProductCategory')
-              .where('categoryId', isEqualTo: categoryId)
-              .get()
-          : await _db
-              .collection('ProductCategory')
-              .where('categoryId', isEqualTo: categoryId)
-              .limit(limit)
-              .get();
+      debugPrint("Fetching products for category: $categoryId");
 
-      debugPrint("1251-----------------------------------");
+      // Lấy danh sách productId từ bảng productCategory
+      QuerySnapshot<Map<String, dynamic>> productCategoryQuery = await _db
+          .collection('productCategory')
+          .where('categoryId', isEqualTo: categoryId)
+          .limit(limit)
+          .get();
 
-      //Extract productIds from the documents
+      if (productCategoryQuery.docs.isEmpty) {
+        debugPrint("No products found for this category.");
+        return [];
+      }
+
+      // Lấy danh sách productId
       List<String> productIds = productCategoryQuery.docs
           .map((doc) => doc['productId'] as String)
           .toList();
-      debugPrint("productIds: $productIds");
 
-      //Query to get all document where the brandId is in the list of brandIds FieldPath.documentId to query document in Collection
-      final productsQuery = await _db
-          .collection('Products')
-          .where(FieldPath.documentId, whereIn: productIds)
-          .get();
+      if (productIds.isEmpty) return [];
 
-      //Extract brand names or other relevant data from the documents
-      List<ProductModel> products = productsQuery.docs
-          .map((doc) => ProductModel.fromSnapshot(doc))
-          .toList();
+      List<ProductModel> products = [];
 
-      debugPrint("Products: $products");
+      // Giới hạn 10 sản phẩm mỗi truy vấn
+      const int batchSize = 10;
+      for (int i = 0; i < productIds.length; i += batchSize) {
+        List<String> batch = productIds.sublist(
+          i,
+          i + batchSize > productIds.length ? productIds.length : i + batchSize,
+        );
+
+        QuerySnapshot<Map<String, dynamic>> productsQuery = await _db
+            .collection('Products')
+            .where(FieldPath.documentId, whereIn: batch)
+            .get();
+
+        products.addAll(
+            productsQuery.docs.map((doc) => ProductModel.fromSnapshot(doc)));
+      }
 
       return products;
     } on FirebaseException catch (e) {
+      debugPrint("Firebase error: ${e.code}");
       throw TFirebaseException(e.code).message;
     } on PlatformException catch (e) {
+      debugPrint("Platform error: ${e.code}");
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw "Something went wrong. Please try again : $e";
+      debugPrint("Unexpected error: $e");
+      throw "Something went wrong. Please try again: $e";
     }
   }
 

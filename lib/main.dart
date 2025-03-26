@@ -22,7 +22,7 @@ Future<void> main() async {
   //Todo: Initialize Firebase
 
   Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY'] ?? '';
-  await Stripe.instance.applySettings();
+  // await Stripe.instance.applySettings();
 
   FirebaseOptions firebaseOptions = DefaultFirebaseOptions.currentPlatform;
 // ...
