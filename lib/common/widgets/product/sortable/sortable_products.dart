@@ -44,26 +44,6 @@ class TSortableProducts extends StatelessWidget {
           height: TSizes.spaceBtwSections,
         ),
 
-        ///Products
-        // TGridLayout(itemCount: 4, itemBuilder: (_,index) => const TProductCardVertical())
-        // Obx(() {
-        //   if (controller.isLoading.value) {
-        //     return const TVerticalProductShimmer();
-        //   }
-        //   if (controller.featuredProducts.isEmpty) {
-        //     return Center(
-        //       child: Text(
-        //         'No Data Found!',
-        //         style: Theme.of(context).textTheme.bodyMedium,
-        //       ),
-        //     );
-        //   }
-        //   return TGridLayout(
-        //       itemCount: controller.featuredProducts.length,
-        //       itemBuilder: (_, index) =>
-        //           TProductCardVertical(product: controller.featuredProducts[index],));
-        // })
-
         Obx(() => TGridLayout(
             itemCount: controller.products.length,
             itemBuilder: (_, index) =>
