@@ -47,11 +47,10 @@ class CategoryBrands extends StatelessWidget {
                   future:
                       controller.getBrandProducts(brandId: brand.id, limit: 3),
                   builder: (context, snapshot) {
-
-
-                    ///Handle Loader No Record OR ERROR Message
-                    final widget = TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot,loader: loader);
-                    if(widget != null) return widget;
+                    // /Handle Loader No Record OR ERROR Message
+                    final widget = TCloudHelperFunctions.checkMultiRecordState(
+                        snapshot: snapshot, loader: loader);
+                    if (widget != null) return widget;
 
                     ///Record Found!
                     final products = snapshot.data!;

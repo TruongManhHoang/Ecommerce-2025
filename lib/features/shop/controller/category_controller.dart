@@ -6,6 +6,7 @@ import 'package:ecommerce_app/data/repositories/products/product_repository.dart
 import 'package:ecommerce_app/features/shop/models/category_model.dart';
 import 'package:ecommerce_app/features/shop/models/product_model.dart';
 import 'package:ecommerce_app/utils/popups/loaders.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CategoryController extends GetxController {
@@ -70,7 +71,7 @@ class CategoryController extends GetxController {
     try {
       // Bắt đầu tải dữ liệu
       isLoading.value = true;
-
+      debugPrint('Loading products for category: $categoryId');
       // Fetch dữ liệu từ API
       final products = await ProductRepository.instance
           .getProductsForCategory(categoryId: categoryId, limit: limit);
