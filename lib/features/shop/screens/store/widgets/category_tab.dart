@@ -44,7 +44,7 @@ class _TCategoryTabState extends State<TCategoryTab> {
               ),
               Obx(() {
                 if (controller.isLoading.value) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(child: TVerticalProductShimmer());
                 }
 
                 if (controller.productForCategories.isEmpty) {

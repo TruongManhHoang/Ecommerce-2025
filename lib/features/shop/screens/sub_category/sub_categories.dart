@@ -2,6 +2,7 @@ import 'package:ecommerce_app/common/widgets/appbar/app_bar.dart';
 import 'package:ecommerce_app/common/widgets/images/t_round_image.dart';
 import 'package:ecommerce_app/common/widgets/layouts/grid_layout.dart';
 import 'package:ecommerce_app/common/widgets/product/product_cards/product_card_vertical.dart';
+import 'package:ecommerce_app/common/widgets/shimmer/vertical_product_shimmer.dart';
 import 'package:ecommerce_app/features/shop/controller/category_controller.dart';
 import 'package:ecommerce_app/features/shop/models/category_model.dart';
 import 'package:ecommerce_app/features/shop/screens/product_details/product_detail.dart';
@@ -38,7 +39,7 @@ class SubCategoriesScreen extends StatelessWidget {
               /// Sub-Categories
               Obx(() {
                 if (controller.isLoading.value) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(child: TVerticalProductShimmer());
                 }
 
                 if (controller.productForCategories.isEmpty) {

@@ -4,6 +4,7 @@ import 'package:ecommerce_app/common/widgets/layouts/grid_layout.dart';
 import 'package:ecommerce_app/common/widgets/brands/brand_cart.dart';
 import 'package:ecommerce_app/common/widgets/product/cart/cart_menu_icon.dart';
 import 'package:ecommerce_app/common/widgets/shimmer/brand_shimmer.dart';
+import 'package:ecommerce_app/common/widgets/shimmer/vertical_product_shimmer.dart';
 import 'package:ecommerce_app/common/widgets/texts/section_heading.dart';
 import 'package:ecommerce_app/features/shop/controller/brand_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/category_controller.dart';
@@ -138,14 +139,8 @@ class _StoreScreenState extends State<StoreScreen>
               controller: _tabController,
               children: categories.map((category) {
                 return SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(), // Cuộn mượt
-                  child: Obx(() {
-                    if (categoryController.isLoading.value) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    return TCategoryTab(category: category);
-                  }),
-                );
+                    physics: const BouncingScrollPhysics(), // Cuộn mượt
+                    child: TCategoryTab(category: category));
               }).toList(),
             ),
           ),
