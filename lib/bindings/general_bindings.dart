@@ -2,7 +2,7 @@ import 'package:ecommerce_app/features/personalization/controllers/address_contr
 import 'package:ecommerce_app/features/shop/controller/banner_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/product/cart_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/product/checkout_controller.dart';
-import 'package:ecommerce_app/features/shop/controller/product/favourites_controller.dart';
+import 'package:ecommerce_app/features/shop/controller/product/favorites_product_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/product/order_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/product/variation_controller.dart';
 import 'package:ecommerce_app/utils/helpers/network_manager.dart';
@@ -18,6 +18,6 @@ class GeneralBindings extends Bindings {
     Get.put(CartController());
     Get.put(OrderController());
     Get.put(BannerController());
-    Get.put(FavouritesController());
+    Get.put(FavouritesProductController());
   }
 }

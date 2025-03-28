@@ -71,7 +71,6 @@ class CategoryController extends GetxController {
     try {
       // Bắt đầu tải dữ liệu
       isLoading.value = true;
-      debugPrint('Loading products for category: $categoryId');
       // Fetch dữ liệu từ API
       final products = await ProductRepository.instance
           .getProductsForCategory(categoryId: categoryId, limit: limit);

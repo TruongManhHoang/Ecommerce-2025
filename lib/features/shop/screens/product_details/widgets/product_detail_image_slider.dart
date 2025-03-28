@@ -69,24 +69,32 @@ class TProductImageSlider extends StatelessWidget {
                           width: TSizes.spaceBtwItems,
                         ),
                     itemBuilder: (_, index) => Obx(() {
-                      final imageSelected = controller.selectedProductImage.value ==images[index];
+                          final imageSelected =
+                              controller.selectedProductImage.value ==
+                                  images[index];
                           return TRoundedImage(
                             isNetworkImage: true,
                             width: 80,
                             backgroundColor:
                                 dark ? TColors.dark : TColors.white,
-                            border: Border.all(color: imageSelected?  TColors.primary: Colors.transparent),
+                            border: Border.all(
+                                color: imageSelected
+                                    ? TColors.primary
+                                    : Colors.transparent),
                             padding: const EdgeInsets.all(TSizes.sm),
                             imageUrl: images[index],
-                            onPressed: () => controller.selectedProductImage.value = images[index],
+                            onPressed: () => controller
+                                .selectedProductImage.value = images[index],
                           );
                         })),
               ),
             ),
-             TAppBar(
+            TAppBar(
               showBackArrow: true,
               actions: [
-                TFavouriteIcon(productId: product.id,),
+                TFavouriteIcon(
+                  productModel: product,
+                ),
               ],
             )
           ],

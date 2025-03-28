@@ -121,8 +121,6 @@ class ProductRepository extends GetxController {
     int limit = 4,
   }) async {
     try {
-      debugPrint("Fetching products for category: $categoryId");
-
       // Lấy danh sách productId từ bảng productCategory
       QuerySnapshot<Map<String, dynamic>> productCategoryQuery = await _db
           .collection('productCategory')
