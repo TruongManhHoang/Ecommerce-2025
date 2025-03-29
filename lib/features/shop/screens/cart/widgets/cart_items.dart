@@ -13,6 +13,7 @@ class TCartItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartController = CartController.instance;
+
     return Obx(
       () => ListView.separated(
         shrinkWrap: true,
@@ -48,7 +49,10 @@ class TCartItems extends StatelessWidget {
                         ///ADD Remove Buttons
                         TProductQuantityWithAddRemoveButton(
                           quantity: item.quantity,
-                          add: () => cartController.addOneToCart(item),
+                          add: () {
+                            cartController.addOneToCart(item);
+                            // cartController.updateCartItemQuantity(item., cartController.itemQuantity);
+                          },
                           remove: () => cartController.removeOneFromCart(item),
                         ),
                       ],

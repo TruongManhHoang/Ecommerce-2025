@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/data/repositories/cart/cart_repository.dart';
 import 'package:ecommerce_app/features/shop/controller/product/variation_controller.dart';
 import 'package:ecommerce_app/features/shop/models/cart_item_model.dart';
 import 'package:ecommerce_app/features/shop/models/product_model.dart';
@@ -5,6 +6,7 @@ import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/enums.dart';
 import 'package:ecommerce_app/utils/local_storage/storage_utility.dart';
 import 'package:ecommerce_app/utils/popups/loaders.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -16,7 +18,9 @@ class CartController extends GetxController {
   RxInt productQuantityInCart = 0.obs;
   RxList<CartItemModel> cartItems = <CartItemModel>[].obs;
   final variationController = VariationController.instance;
-
+  final cartRepository = CartRepository();
+  final _auth = FirebaseAuth.instance;
+  int itemQuantity = 0;
   CartController() {
     loadCartItems();
   }
@@ -35,7 +39,8 @@ class CartController extends GetxController {
       TLoaders.customToast(message: 'Select Variation');
       return;
     }
-
+    final userId = _auth.currentUser?.uid;
+    cartRepository.addToCart(userId!, product, productQuantityInCart.value);
     // Out of Stock Status
     if (product.productType == ProductType.variable.toString()) {
       if (variationController.selectedVariation.value.stock < 1) {
@@ -71,13 +76,35 @@ class CartController extends GetxController {
     TLoaders.customToast(message: 'Your Product has been added to the Cart.');
   }
 
+  void updateCartItemQuantity(String cartId, int quantity) {
+    //Get the current user ID
+    final userId = _auth.currentUser?.uid;
+    if (userId == null) return;
+
+    //Update the cart item quantity in the database
+    cartRepository.updateCartItemQuantity(userId, cartId, quantity);
+    // .then(
+    //   (value) {
+    //     //Update the local cart items
+    //     int index = cartItems.indexWhere((item) => item.productId == cartId);
+    //     if (index >= 0) {
+    //       cartItems[index].quantity = quantity;
+    //       updateCart();
+    //     }
+    //   },
+    // ).catchError((error) {
+    //   TLoaders.customToast(message: 'Failed to update cart item quantity.');
+    // });
+  }
+
   void addOneToCart(CartItemModel item) {
     int index = cartItems.indexWhere((cartItem) =>
         cartItem.productId == item.productId &&
         cartItem.variationId == item.variationId);
 
     if (index >= 0) {
-      cartItems[index].quantity += 1;
+      var increase = cartItems[index].quantity += 1;
+      itemQuantity = increase;
     } else {
       cartItems.add(item);
     }
@@ -92,7 +119,8 @@ class CartController extends GetxController {
 
     if (index >= 0) {
       if (cartItems[index].quantity > 1) {
-        cartItems[index].quantity -= 1;
+        var reduce = cartItems[index].quantity -= 1;
+        itemQuantity = reduce;
       } else {
         //Show dialog before completely removing
         cartItems[index].quantity == 1

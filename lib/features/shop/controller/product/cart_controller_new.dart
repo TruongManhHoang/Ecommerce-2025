@@ -1,13 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_app/features/shop/controller/product/cart_controller.dart';
 import 'package:ecommerce_app/features/shop/models/cart_model.dart';
 import 'package:ecommerce_app/features/shop/models/product_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-class CartRepository extends GetxController {
-  static CartRepository get instance => Get.find();
-  final _db = FirebaseFirestore.instance;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 
-//
+class CartControllerNew extends GetxController {
+  static CartControllerNew get instance => Get.find();
+
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  /// **🛒 Thêm sản phẩm vào giỏ hàng**
   Future<void> addToCart(
       String userId, ProductModel product, int quantity) async {
     try {
