@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:ecommerce_app/utils/constants/api_constants.dart';
 import 'package:ecommerce_app/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,7 +33,7 @@ class StripeService {
       final response = await http.post(
         Uri.parse('https://api.stripe.com/v1/payment_intents'),
         headers: {
-          'Authorization': 'Bearer ${dotenv.env['STRIPE_SECRET_KEY']}',
+          'Authorization': 'Bearer $STRIPE_SECRET_KEY',
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: {
