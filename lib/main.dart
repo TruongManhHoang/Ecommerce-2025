@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/data/repositories/authentication/authentication_repository.dart';
+import 'package:ecommerce_app/utils/constants/api_constants.dart';
 import 'package:ecommerce_app/utils/local_storage/storage_utility.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -14,14 +14,15 @@ Future<void> main() async {
   final WidgetsBinding widgetsBinding =
       WidgetsFlutterBinding.ensureInitialized();
   //Todo: Init Local Storage
-  await dotenv.load(fileName: ".env");
+  // await dotenv.load(fileName: ".env");
 
   await TLocalStorage.init('myBucket');
   //Todo: Await Native Splash
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   //Todo: Initialize Firebase
 
-  Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY'] ?? '';
+  // Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY'] ?? '';
+  Stripe.publishableKey = STRIPE_PUBLISHABLE_KEY;
   // await Stripe.instance.applySettings();
 
   FirebaseOptions firebaseOptions = DefaultFirebaseOptions.currentPlatform;

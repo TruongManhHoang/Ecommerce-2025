@@ -1,7 +1,6 @@
 import 'package:ecommerce_app/features/shop/models/message_model.dart';
 import 'package:ecommerce_app/features/shop/screens/chat_bot/widgets/user_prompt_item.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:intl/intl.dart';
 
@@ -14,32 +13,70 @@ class GeminiBot extends StatefulWidget {
 
 class _GeminiBotState extends State<GeminiBot> {
   TextEditingController proprController = TextEditingController();
+  final ScrollController scrollController = ScrollController();
+
   static const apiKey = "AIzaSyCFVPqCE2WC8KGcHuxvwEfHlkjP3X-6Xws";
   final mode = GenerativeModel(model: 'gemini-1.5-pro', apiKey: apiKey);
 
-  final bool isPrompt = true;
   final List<MessageModel> promt = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _sendInitialMessage(); // Chatbot gửi tin nhắn đầu tiên
+  }
+
+  /// Hàm tự động cuộn đến cuối danh sách sau khi frame được render
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (scrollController.hasClients) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
+  Future<void> _sendInitialMessage() async {
+    const initialText = "Chào bạn! Bạn đang tìm kiếm gì trong ngày hôm nay? 😊";
+
+    setState(() {
+      promt.add(MessageModel(
+        isPrompt: false, // Đây là tin nhắn của chatbot
+        message: initialText,
+        time: DateTime.now(),
+      ));
+    });
+    _scrollToBottom();
+  }
 
   Future<void> sendMessage() async {
     final message = proprController.text;
+    if (message.isEmpty) return; // Không gửi tin nhắn rỗng
+
     setState(() {
-      proprController.clear();
       promt.add(MessageModel(
-        isPrompt: true,
+        isPrompt: true, // Đây là tin nhắn của người dùng
         message: message,
         time: DateTime.now(),
       ));
+      proprController.clear();
     });
-    // for respond
+    _scrollToBottom();
+
     final content = [Content.text(message)];
     final response = await mode.generateContent(content);
+
     setState(() {
       promt.add(MessageModel(
-        isPrompt: false,
-        message: response.text ?? "",
+        isPrompt: false, // Đây là tin nhắn của chatbot
+        message: response.text ?? "Xin lỗi, tôi chưa hiểu câu hỏi của bạn.",
         time: DateTime.now(),
       ));
     });
+    _scrollToBottom();
   }
 
   @override
@@ -54,38 +91,40 @@ class _GeminiBotState extends State<GeminiBot> {
       body: Column(
         children: [
           Expanded(
-              child: ListView.builder(
-                  itemCount: promt.length,
-                  itemBuilder: (context, index) {
-                    final message = promt[index];
-                    return UserPrompt(
-                      message: message.message,
-                      isPrompt: message.isPrompt,
-                      date: DateFormat('hh:mm a').format(message.time),
-                    );
-                  })),
+            child: ListView.builder(
+              controller: scrollController,
+              itemCount: promt.length,
+              itemBuilder: (context, index) {
+                final message = promt[index];
+                return UserPrompt(
+                  message: message.message,
+                  isPrompt: message.isPrompt,
+                  date: DateFormat('hh:mm a').format(message.time),
+                );
+              },
+            ),
+          ),
           Padding(
-            padding: EdgeInsets.all(25),
+            padding: const EdgeInsets.all(25),
             child: Row(
               children: [
                 Expanded(
-                    child: TextField(
-                  controller: proprController,
-                  style: const TextStyle(color: Colors.black, fontSize: 20),
-                  decoration: InputDecoration(
-                    hintText: 'Nhập câu hỏi của bạn',
-                    hintStyle:
-                        const TextStyle(color: Colors.black, fontSize: 20),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
+                  child: TextField(
+                    controller: proprController,
+                    style: const TextStyle(color: Colors.black, fontSize: 20),
+                    decoration: InputDecoration(
+                      hintText: 'Nhập câu trả lời...',
+                      hintStyle:
+                          const TextStyle(color: Colors.black, fontSize: 18),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
-                )),
-                Gap(10),
+                ),
+                const SizedBox(width: 10),
                 GestureDetector(
-                  onTap: () {
-                    sendMessage();
-                  },
+                  onTap: sendMessage,
                   child: const CircleAvatar(
                     radius: 29,
                     backgroundColor: Colors.green,

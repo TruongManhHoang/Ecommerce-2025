@@ -26,14 +26,12 @@ class TProductCardVertical extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
     final salePercentage =
-    controller.calculateSalePercentage(product.price, product.salePrice);
+        controller.calculateSalePercentage(product.price, product.salePrice);
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: () =>
-          Get.to(() =>
-              ProductDetailScreen(
-                product: product,
-              )),
+      onTap: () => Get.to(() => ProductDetailScreen(
+            product: product,
+          )),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
@@ -71,18 +69,19 @@ class TProductCardVertical extends StatelessWidget {
                             horizontal: TSizes.sm, vertical: TSizes.xs),
                         child: Text(
                           '$salePercentage%',
-                          style: Theme
-                              .of(context)
+                          style: Theme.of(context)
                               .textTheme
                               .labelLarge!
                               .apply(color: TColors.black),
                         ),
                       )),
                   // Favourite Icon Button
-                   Positioned(
+                  Positioned(
                     top: 0,
                     right: 0,
-                    child: TFavouriteIcon(productId: product.id,),
+                    child: TFavouriteIcon(
+                      productModel: product,
+                    ),
                   ),
                 ],
               ),
@@ -117,19 +116,18 @@ class TProductCardVertical extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if(product.productType == ProductType.single.toString() &&
+                      if (product.productType ==
+                              ProductType.single.toString() &&
                           product.salePrice > 0)
                         Padding(
                           padding: const EdgeInsets.only(left: TSizes.sm),
                           child: Text(
-                           '\$${product.price.toString()}',
-                            style: Theme
-                                .of(context)
+                            '\$${product.price.toString()}',
+                            style: Theme.of(context)
                                 .textTheme
                                 .labelMedium!
                                 .apply(decoration: TextDecoration.lineThrough),
                           ),
-
                         ),
                       Padding(
                         padding: const EdgeInsets.only(left: TSizes.sm),
@@ -140,7 +138,6 @@ class TProductCardVertical extends StatelessWidget {
                   ),
                 ),
                 ProductCartAddToCartButton(product: product),
-
               ],
             )
           ],
