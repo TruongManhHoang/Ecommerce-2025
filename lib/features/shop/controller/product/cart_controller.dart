@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/domain/repository/cart/cart_repository.dart';
 import 'package:ecommerce_app/features/shop/controller/product/variation_controller.dart';
 import 'package:ecommerce_app/features/shop/models/cart_item_model.dart';
 import 'package:ecommerce_app/features/shop/models/product_model.dart';
@@ -5,6 +6,7 @@ import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/enums.dart';
 import 'package:ecommerce_app/utils/local_storage/storage_utility.dart';
 import 'package:ecommerce_app/utils/popups/loaders.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -14,11 +16,26 @@ class CartController extends GetxController {
   RxInt noOfCartItems = 0.obs;
   RxDouble totalCartPrice = 0.0.obs;
   RxInt productQuantityInCart = 0.obs;
+  final cartRepository = CartRepository();
+  final _auth = FirebaseAuth.instance;
+  RxSet<CartItemModel> cartItemsSet = <CartItemModel>{}.obs;
   RxList<CartItemModel> cartItems = <CartItemModel>[].obs;
   final variationController = VariationController.instance;
 
   CartController() {
-    loadCartItems();
+    // loadCartItems();
+    loadUserCart();
+  }
+
+  Future<void> loadUserCart() async {
+    final userId = _auth.currentUser?.uid;
+    if (userId == null) return;
+
+    final products = await cartRepository.getCartProducts(userId);
+    cartItems.assignAll(products);
+    totalCartPrice.value =
+        cartItems.map((e) => e.price * e.quantity).fold(0.0, (a, b) => a + b);
+    noOfCartItems.value = cartItems.length;
   }
 
   //Add items in the cart
@@ -65,6 +82,7 @@ class CartController extends GetxController {
       cartItems[index].quantity = selectedCartItem.quantity;
     } else {
       cartItems.add(selectedCartItem);
+      cartRepository.addProductToCart(_auth.currentUser!.uid, selectedCartItem);
     }
 
     updateCart();
@@ -85,7 +103,9 @@ class CartController extends GetxController {
     updateCart();
   }
 
-  void removeOneFromCart(CartItemModel item) {
+  void removeOneFromCart(
+    CartItemModel item,
+  ) {
     int index = cartItems.indexWhere((cartItem) =>
         cartItem.productId == item.productId &&
         cartItem.variationId == item.variationId);
@@ -96,14 +116,14 @@ class CartController extends GetxController {
       } else {
         //Show dialog before completely removing
         cartItems[index].quantity == 1
-            ? removeFromCartDialog(index)
+            ? removeFromCartDialog(index, item.productId)
             : cartItems.removeAt(index);
       }
       updateCart();
     }
   }
 
-  void removeFromCartDialog(int index) {
+  void removeFromCartDialog(int index, String productId) {
     Get.defaultDialog(
       title: 'Remove Product',
       middleText: 'Are you sure you want to remove this product?',
@@ -113,6 +133,10 @@ class CartController extends GetxController {
       onConfirm: () {
         //Remove the item from the cart
         cartItems.removeAt(index);
+        cartRepository.removeProductFromCart(
+          _auth.currentUser!.uid,
+          productId,
+        );
         updateCart();
         TLoaders.customToast(message: 'Product removed from the Cart.');
         Get.back();
