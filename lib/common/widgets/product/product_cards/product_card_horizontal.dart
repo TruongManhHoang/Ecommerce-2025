@@ -23,8 +23,6 @@ class TProductCardHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     final controller = ProductController.instance;
-    final salePercentage =
-        controller.calculateSalePercentage(product.price, product.salePrice);
     return Container(
       width: 310,
       padding: const EdgeInsets.all(1),
@@ -53,22 +51,6 @@ class TProductCardHorizontal extends StatelessWidget {
                   ),
                 ),
 
-                /// Sale tag
-                Positioned(
-                    top: 12,
-                    child: TRoundedContainer(
-                      radius: TSizes.sm,
-                      backgroundColor: TColors.secondary.withOpacity(0.8),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: TSizes.sm, vertical: TSizes.xs),
-                      child: Text(
-                        '$salePercentage%',
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelLarge!
-                            .apply(color: TColors.black),
-                      ),
-                    )),
                 // Favourite Icon Button
                 Positioned(
                   top: 0,

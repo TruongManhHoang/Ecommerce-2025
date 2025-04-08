@@ -34,9 +34,10 @@ class VariationController extends GetxController {
     }
 
     //Show selected variation quantity already in the cart.
-    if(selectedVariation.id.isNotEmpty){
+    if (selectedVariation.id.isNotEmpty) {
       final cartController = CartController.instance;
-      cartController.productQuantityInCart.value = cartController.getVariationQuantityInCart(product.id, selectedVariation.id);
+      cartController.productQuantityInCart.value = cartController
+          .getVariationQuantityInCart(product.id, selectedVariation.id);
     }
 
     //Assign Selected Variation
@@ -77,8 +78,11 @@ class VariationController extends GetxController {
     return availableVariationAttributeValues;
   }
 
-  String getVariationPrice(){
-    return(selectedVariation.value.salePrice >0 ? selectedVariation.value.salePrice : selectedVariation.value.price).toString();
+  String getVariationPrice() {
+    return (selectedVariation.value.salePrice > 0
+            ? selectedVariation.value.salePrice
+            : selectedVariation.value.price)
+        .toString();
   }
 
   /// Check Product Variation Stock Status

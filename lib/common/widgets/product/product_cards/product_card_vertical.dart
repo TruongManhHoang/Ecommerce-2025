@@ -25,8 +25,7 @@ class TProductCardVertical extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = ProductController.instance;
-    final salePercentage =
-        controller.calculateSalePercentage(product.price, product.salePrice);
+
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
       onTap: () => Get.to(() => ProductDetailScreen(
@@ -59,22 +58,6 @@ class TProductCardVertical extends StatelessWidget {
                     ),
                   ),
 
-                  ///Sale Tag
-                  Positioned(
-                      top: 12,
-                      child: TRoundedContainer(
-                        radius: TSizes.sm,
-                        backgroundColor: TColors.secondary.withOpacity(0.8),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: TSizes.sm, vertical: TSizes.xs),
-                        child: Text(
-                          '$salePercentage%',
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge!
-                              .apply(color: TColors.black),
-                        ),
-                      )),
                   // Favourite Icon Button
                   Positioned(
                     top: 0,

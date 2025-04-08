@@ -1,18 +1,20 @@
-
-
 import 'package:ecommerce_app/data/models/dummy_data.dart';
 import 'package:ecommerce_app/data/repositories/products/product_repository.dart';
 import 'package:ecommerce_app/features/shop/models/product_model.dart';
 import 'package:ecommerce_app/utils/constants/enums.dart';
 import 'package:ecommerce_app/utils/popups/loaders.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
-class ProductController extends GetxController{
+class ProductController extends GetxController {
   static ProductController get instance => Get.find();
 
   final isLoading = false.obs;
   final productRepository = Get.put(ProductRepository());
   RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
+  RxList<ProductModel> searchProducts = <ProductModel>[].obs;
+  RxList<String> historySearch = <String>[].obs;
+  RxString searchQuery = ''.obs;
 
   @override
   void onInit() {
@@ -20,8 +22,33 @@ class ProductController extends GetxController{
     super.onInit();
   }
 
-  void fetchFeaturedProducts()async {
-    try{
+  void filterSearchProducts(String query) {
+    searchQuery.value = query;
+
+    if (query.isEmpty) {
+      searchProducts.clear(); // Xóa kết quả khi query rỗng
+    } else {
+      final results = featuredProducts
+          .where((product) => product.title
+              .toLowerCase()
+              .trim()
+              .contains(query.toLowerCase().trim()))
+          .toList();
+
+      searchProducts.assignAll(results);
+
+      if (!historySearch.contains(query)) {
+        historySearch.add(query); // Thêm vào lịch sử nếu chưa có
+      }
+    }
+  }
+
+  void clearSearchHistory() {
+    historySearch.clear();
+  }
+
+  void fetchFeaturedProducts() async {
+    try {
       isLoading.value = true;
 
       //Fetch Products
@@ -29,99 +56,98 @@ class ProductController extends GetxController{
 
       //Assign Products
       featuredProducts.assignAll(products);
-
-
-    }catch(e){
+    } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
-    }finally{
+    } finally {
       isLoading.value = false;
     }
   }
 
-  Future<List<ProductModel>>fetchAllFeaturedProducts()async {
-    try{
+  Future<List<ProductModel>> fetchAllFeaturedProducts() async {
+    try {
       //Fetch Products
       final products = await productRepository.getAllFeaturedProducts();
       return products;
-
-    }catch(e){
+    } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
       return [];
     }
   }
 
-  String getProductPrice(ProductModel product){
+  String getProductPrice(ProductModel product) {
     //Get the product price or price range for variations
     double smallestPrice = double.infinity;
     double largesPrice = 0.0;
 
     //If no variations exist return the simple price or sale price
-    if(product.productType == ProductType.single.toString()){
-      return(product.salePrice >0 ? product.salePrice : product.price).toString();
-    }else {
+    if (product.productType == ProductType.single.toString()) {
+      return (product.salePrice > 0 ? product.salePrice : product.price)
+          .toString();
+    } else {
       //Calculate the smallest and largest prices among variations
-      for(var variation in product.productVariations!){
+      for (var variation in product.productVariations!) {
         //Determine the price to consider (sale price if available, otherwise regular price)
-        double priceToConsider = variation.salePrice > 0.0 ? variation.salePrice : variation.price;
+        double priceToConsider =
+            variation.salePrice > 0.0 ? variation.salePrice : variation.price;
 
         //Update smallest and largest prices
-        if(priceToConsider < smallestPrice){
+        if (priceToConsider < smallestPrice) {
           smallestPrice = priceToConsider;
         }
-        if(priceToConsider > largesPrice){
+        if (priceToConsider > largesPrice) {
           largesPrice = priceToConsider;
         }
       }
       //If smallest and largest prices are the same return a single price
-      if(smallestPrice.isEqual(largesPrice)){
+      if (smallestPrice.isEqual(largesPrice)) {
         return largesPrice.toString();
-      }else{
+      } else {
         //Otherwise, return a price range
-        return'$smallestPrice - \$$largesPrice';
+        return '$smallestPrice - \$$largesPrice';
       }
     }
-
   }
 
   /// -- Calculate Discount Percentage
-  String? calculateSalePercentage(double originalPrice, double? salePrice){
-    if(salePrice == null || salePrice <0){
+  String? calculateSalePercentage(double originalPrice, double? salePrice) {
+    if (salePrice == null || salePrice < 0) {
       return null;
     }
-    if(originalPrice <=0) return null;
+    if (originalPrice <= 0) return null;
 
-    double percentage = ((originalPrice - salePrice) /originalPrice) * 100;
+    double percentage = ((originalPrice - salePrice) / originalPrice) * 100;
     return percentage.toStringAsFixed(0);
   }
 
-  String getProductStockStatus(int stock){
-    return stock >0 ? 'In Stock': 'Out of Stock';
+  String getProductStockStatus(int stock) {
+    return stock > 0 ? 'In Stock' : 'Out of Stock';
   }
 
-  uploadDummyDataProducts() async{
-    try{
+  uploadDummyDataProducts() async {
+    try {
       //Fetch Banner
 
       await productRepository.uploadDummyData(TDummyData.products);
-      TLoaders.successSnackBar(title: 'Congratulations',
+      TLoaders.successSnackBar(
+          title: 'Congratulations',
           message: 'Your Dummy Data has been updated!');
     } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
       print('error : $e');
-
     }
   }
 
-  uploadDummyDataProductCategory()async {
-    try{
+  uploadDummyDataProductCategory() async {
+    try {
       //Fetch Banner
-      await productRepository.uploadDummyDataProductCategory(TDummyData.productCategory);
-      TLoaders.successSnackBar(title: 'Congratulations',
+      await productRepository
+          .uploadDummyDataProductCategory(TDummyData.productCategory);
+      TLoaders.successSnackBar(
+          title: 'Congratulations',
           message: 'Your Dummy Data has been updated!');
     } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
       print('error : $e');
-
     }
   }
 }

@@ -21,7 +21,7 @@ class TProductAttributes extends StatelessWidget {
     final dark = THelperFunctions.isDarkMode(context);
     final controller = Get.put(VariationController());
     return Obx(
-        ()=> Column(
+      () => Column(
         children: [
           ///Title Price Stock Status
           if (controller.selectedVariation.value.id.isNotEmpty)
@@ -50,22 +50,26 @@ class TProductAttributes extends StatelessWidget {
                                 ),
 
                                 /// Actual Price
-                                if(controller.selectedVariation.value.salePrice > 0)
-                                Text(
-                                  '\$${controller.selectedVariation.value.price}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleSmall!
-                                      .apply(
-                                          decoration: TextDecoration.lineThrough),
-                                ),
+                                if (controller
+                                        .selectedVariation.value.salePrice >
+                                    0)
+                                  Text(
+                                    '\$${controller.selectedVariation.value.price}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall!
+                                        .apply(
+                                            decoration:
+                                                TextDecoration.lineThrough),
+                                  ),
 
                                 const SizedBox(
                                   width: TSizes.spaceBtwItems,
                                 ),
 
                                 ///Sale Price
-                                 TProductPriceText(price: controller.getVariationPrice()),
+                                TProductPriceText(
+                                    price: controller.getVariationPrice()),
                               ],
                             ),
                             Row(
@@ -75,8 +79,9 @@ class TProductAttributes extends StatelessWidget {
                                   smallSize: true,
                                 ),
                                 Text(
-                                 controller.variationStockStatus.value,
-                                  style: Theme.of(context).textTheme.titleMedium,
+                                  controller.variationStockStatus.value,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
                                 ),
                               ],
                             ),
@@ -86,9 +91,9 @@ class TProductAttributes extends StatelessWidget {
                     ),
 
                     ///Variation Description
-                     TProductTitleText(
+                    TProductTitleText(
                       title:
-                        controller.selectedVariation.value.description ?? '',
+                          controller.selectedVariation.value.description ?? '',
                       maxLines: 4,
                       smallSize: true,
                     ),
@@ -106,17 +111,13 @@ class TProductAttributes extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TSectionHeading(
-                          title: attribute.name ?? '',
+                          title: attribute.name!,
                           showActionButton: false,
                         ),
-                        const SizedBox(
-                          height: TSizes.spaceBtwItems / 2,
-                        ),
-                        Obx(
-                          () => Wrap(
-                            spacing: 8,
-                            children: attribute.values!.map(
-                              (attributeValue) {
+                        const SizedBox(height: TSizes.spaceBtwItems / 2),
+                        Obx(() => Wrap(
+                              spacing: 8,
+                              children: attribute.values!.map((attributeValue) {
                                 final isSelected = controller
                                         .selectedAttributes[attribute.name] ==
                                     attributeValue;
@@ -130,23 +131,21 @@ class TProductAttributes extends StatelessWidget {
                                   selected: isSelected,
                                   onSelected: available
                                       ? (selected) {
-                                          if (selected && available) {
+                                          if (selected) {
                                             controller.onAttributeSelected(
                                                 product,
-                                                attribute.name ?? '',
+                                                attribute.name!,
                                                 attributeValue);
                                           }
                                         }
                                       : null,
                                 );
-                              },
-                            ).toList(),
-                          ),
-                        )
+                              }).toList(),
+                            )),
                       ],
                     ))
                 .toList(),
-          ),
+          )
         ],
       ),
     );
