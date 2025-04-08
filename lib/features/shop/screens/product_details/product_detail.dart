@@ -20,9 +20,8 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      bottomNavigationBar:  TBottomAddToCart(product: product),
+      bottomNavigationBar: TBottomAddToCart(product: product),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -48,23 +47,11 @@ class ProductDetailScreen extends StatelessWidget {
 
                   ///attributes
                   if (product.productType == ProductType.variable.toString())
-                     TProductAttributes(product: product),
+                    TProductAttributes(product: product),
                   if (product.productType == ProductType.variable.toString())
                     const SizedBox(
                       height: TSizes.spaceBtwSections,
                     ),
-
-                  ///checkout button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Checkout'),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: TSizes.spaceBtwSections,
-                  ),
 
                   ///description
                   const TSectionHeading(
@@ -80,10 +67,10 @@ class ProductDetailScreen extends StatelessWidget {
                     trimMode: TrimMode.Line,
                     trimCollapsedText: 'Show more',
                     trimExpandedText: 'Less',
-                    moreStyle:
-                        const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                    lessStyle:
-                        const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    moreStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w800),
+                    lessStyle: const TextStyle(
+                        fontSize: 14, fontWeight: FontWeight.w800),
                   ),
 
                   ///reviews

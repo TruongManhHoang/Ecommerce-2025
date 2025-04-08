@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/common/widgets/custom_shapes/container/primary_header_container.dart';
-import 'package:ecommerce_app/common/widgets/custom_shapes/container/search_container.dart';
 import 'package:ecommerce_app/common/widgets/layouts/grid_layout.dart';
 import 'package:ecommerce_app/common/widgets/product/product_cards/product_card_vertical.dart';
 import 'package:ecommerce_app/common/widgets/shimmer/vertical_product_shimmer.dart';
@@ -28,14 +27,6 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
               children: [
                 THomeAppBar(),
-                SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
-                //Searchbar
-                TSearchContainer(
-                  text: 'Search in Store',
-                ),
-
                 SizedBox(
                   height: TSizes.spaceBtwSections,
                 ),
