@@ -7,6 +7,7 @@ class TImages {
       "assets/logos/t-store-splash-logo-black.png";
   static const String lightAppLogo =
       "assets/logos/t-store-splash-logo-white.png";
+  static const String chatBot = "assets/logos/chatbot.png";
 
   // -- Social Logos
   static const String google = "assets/logos/google-icon.png";
