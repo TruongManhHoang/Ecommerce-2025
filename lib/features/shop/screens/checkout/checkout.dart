@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce_app/common/widgets/appbar/app_bar.dart';
 import 'package:ecommerce_app/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:ecommerce_app/common/widgets/product/cart/coupon_widget.dart';
+import 'package:ecommerce_app/common/widgets/success_screen/success_screen.dart';
 import 'package:ecommerce_app/data/service/stripe_sevice.dart';
 import 'package:ecommerce_app/features/shop/controller/product/cart_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/product/order_controller.dart';
@@ -9,12 +10,16 @@ import 'package:ecommerce_app/features/shop/screens/cart/widgets/cart_items.dart
 import 'package:ecommerce_app/features/shop/screens/checkout/widgets/billing_address_section.dart';
 import 'package:ecommerce_app/features/shop/screens/checkout/widgets/billing_amount_section.dart';
 import 'package:ecommerce_app/features/shop/screens/checkout/widgets/billing_payment_section.dart';
+import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
+import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:ecommerce_app/utils/helpers/pricing_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:get/get.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -31,6 +36,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final subTotal = cartController.totalCartPrice.value;
     final orderController = OrderController.instance;
     final totalAmount = TPricingCalculator.calculateTotalPrice(subTotal, 'US');
+
     return Scaffold(
       appBar: TAppBar(
           showBackArrow: true,
@@ -93,7 +99,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
 
       ///Checkout Button
-      ///Checkout Button
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ElevatedButton(
@@ -111,45 +116,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           child: Text('Checkout ${totalAmount.toString()}'),
         ),
       ),
-
-      // bottomNavigationBar: Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: ElevatedButton(
-      //     onPressed: () async {
-      //       // final paymentSuccess =
-      //       //     await StripeService.instance.initializePaymentSheet(
-      //       //   totalAmount.toInt().toString(),
-      //       //   "USD",
-      //       // );
-
-      //       // if (paymentSuccess) {
-      //       //   return orderController.processOrder(totalAmount);
-      //       // }
-      //       handlePayment(totalAmount, 0);
-      //     },
-      //     child: Text('Checkout ${totalAmount.toString()}'),
-      //   ),
-      // ),
     );
   }
-
-  // void handlePayment(double total, double coupon) async {
-  //   String? paymentIntent = await StripeService.instance
-  //       .makePayment(200 - coupon); //dang truyen 200000 mà
-
-  //   if (paymentIntent != null) {
-  //     try {
-  //       await Stripe.instance.presentPaymentSheet();
-  //     } catch (e) {
-  //       if (e is StripeException) {
-  //         print("Lỗi Stripe: ${e.error.localizedMessage}");
-  //       } else {
-  //         print("Lỗi không xác định: $e");
-  //       }
-  //       // TODO: Xử lý lỗi khi thanh toán thất bại, hiển thị thông báo cho người dùng
-  //     }
-  //   } else {
-  //     print("Không thể khởi tạo thanh toán!");
-  //   }
-  // }
 }

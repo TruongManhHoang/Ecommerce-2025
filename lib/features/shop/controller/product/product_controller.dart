@@ -26,7 +26,7 @@ class ProductController extends GetxController {
     searchQuery.value = query;
 
     if (query.isEmpty) {
-      searchProducts.clear(); // Xóa kết quả khi query rỗng
+      searchProducts.clear();
     } else {
       final results = featuredProducts
           .where((product) => product.title
@@ -38,7 +38,7 @@ class ProductController extends GetxController {
       searchProducts.assignAll(results);
 
       if (!historySearch.contains(query)) {
-        historySearch.add(query); // Thêm vào lịch sử nếu chưa có
+        historySearch.add(query);
       }
     }
   }
