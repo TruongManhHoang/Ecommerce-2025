@@ -1,8 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:ecommerce_app/common/widgets/appbar/app_bar.dart';
 import 'package:ecommerce_app/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:ecommerce_app/common/widgets/product/cart/coupon_widget.dart';
-import 'package:ecommerce_app/common/widgets/success_screen/success_screen.dart';
 import 'package:ecommerce_app/data/service/stripe_sevice.dart';
 import 'package:ecommerce_app/features/shop/controller/product/cart_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/product/order_controller.dart';
@@ -10,16 +8,11 @@ import 'package:ecommerce_app/features/shop/screens/cart/widgets/cart_items.dart
 import 'package:ecommerce_app/features/shop/screens/checkout/widgets/billing_address_section.dart';
 import 'package:ecommerce_app/features/shop/screens/checkout/widgets/billing_amount_section.dart';
 import 'package:ecommerce_app/features/shop/screens/checkout/widgets/billing_payment_section.dart';
-import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
-import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:ecommerce_app/utils/helpers/pricing_calculator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:get/get.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});

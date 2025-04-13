@@ -15,43 +15,86 @@ class UserAddressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AddressController());
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: TColors.primary,
-        onPressed: () => Get.to(()=> const AddNewAddressScreen()),
-        child: const Icon(Iconsax.add, color: TColors.white,),
+        onPressed: () => Get.to(() => const AddNewAddressScreen()),
+        child: const Icon(Iconsax.add, color: TColors.white),
       ),
       appBar: TAppBar(
         showBackArrow: true,
-        title: Text('Addresses',style: Theme.of(context).textTheme.headlineSmall,),
+        title:
+            Text('Addresses', style: Theme.of(context).textTheme.headlineSmall),
       ),
-      body:  SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(TSizes.defaultSpace),
-          child:Obx(
-            ()=> FutureBuilder(
-              //Use key to trigger refresh
+          child: Obx(
+            () => FutureBuilder(
               key: Key(controller.refreshData.value.toString()),
-              future:controller.getAllUserAddresses() ,
-              builder: (context, snapshot){
-
-                ///Helper Function : Handle loader, No Record, Error message
-                final response = TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot);
-                if(response != null) return response;
+              future: controller.getAllUserAddresses(),
+              builder: (context, snapshot) {
+                final response = TCloudHelperFunctions.checkMultiRecordState(
+                    snapshot: snapshot);
+                if (response != null) return response;
 
                 final addresses = snapshot.data!;
 
                 return ListView.builder(
                   shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
-                  itemBuilder:(_,index) => TSingAddress(
-                    address: addresses[index],
-                    onTap: () => controller.selectAddress(addresses[index]),
-                  ) ,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: addresses.length,
+                  itemBuilder: (_, index) {
+                    final address = addresses[index];
+
+                    return Dismissible(
+                      key: Key(address.id),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        child: const Icon(Icons.delete, color: Colors.white),
+                      ),
+                      confirmDismiss: (direction) async {
+                        return await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Confirm Delete'),
+                            content: const Text(
+                                'Do you really want to delete this address?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(true),
+                                child: const Text('Delete',
+                                    style: TextStyle(color: Colors.red)),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      onDismissed: (direction) async {
+                        await controller.deleteAddress(address.id);
+                        controller.refreshData
+                            .toggle(); // refresh lại danh sách
+                      },
+                      child: TSingAddress(
+                        address: address,
+                        onTap: () => controller.selectAddress(address),
+                      ),
+                    );
+                  },
                 );
               },
             ),
-          )
+          ),
         ),
       ),
     );
