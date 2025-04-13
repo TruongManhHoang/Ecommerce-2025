@@ -38,6 +38,7 @@ class TImages {
   static const String gildanlogo = "assets/icons/brands/gildan.jpg";
   static const String wranglerlogo = "assets/icons/brands/wrangler.jpg";
   static const String tacvasenlogo = "assets/icons/brands/tacvasen.png";
+  static const String mageMalelogo = "assets/icons/brands/mage_male.jpg";
 
   // -- Animations
   static const String productsIllustration =
@@ -253,6 +254,26 @@ class TImages {
       "assets/images/products/slipper-product-3.png";
   static const String productImage77 =
       "assets/images/products/slipper-product.png";
+
+  static const String productImage78 =
+      "assets/images/products/mage_male_slim_fit_suit_black.png";
+  static const String productImage79 =
+      "assets/images/products/mage_male_slim_fit_suit_blue.png";
+  static const String productImage80 =
+      "assets/images/products/mage_male_slim_fit_suit_brown.png";
+  static const String productImage81 =
+      "assets/images/products/mage_male_slim_fit_suit_grey.png";
+  static const String productImage82 =
+      "assets/images/products/mage_male_slim_fit_suit_white.png";
+
+  static const String productImage83 =
+      "assets/images/products/mage_male_suit_blazer_black.png";
+  static const String productImage84 =
+      "assets/images/products/mage_male_suit_blazer_blue.png";
+  static const String productImage85 =
+      "assets/images/products/mage_male_suit_blazer_grey.png";
+  static const String productImage86 =
+      "assets/images/products/mage_male_suit_blazer_purple.png";
 
   // -- Product Reviews
   static const String userProfileImage1 =

@@ -76,14 +76,6 @@ class _StoreScreenState extends State<StoreScreen>
             padding: const EdgeInsets.all(TSizes.defaultSpace),
             child: Column(
               children: [
-                const SizedBox(height: TSizes.spaceBtwItems),
-                const TSearchContainer(
-                  text: "Search in Store",
-                  showBorder: true,
-                  showBackground: false,
-                  padding: EdgeInsets.zero,
-                ),
-                const SizedBox(height: TSizes.spaceBtwSections),
                 TSectionHeading(
                   title: 'Featured Brands',
                   onPressed: () => Get.to(() => const AllBrandsScreen()),

@@ -13,49 +13,57 @@ import 'package:ecommerce_app/utils/popups/loaders.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AddressController extends GetxController{
+class AddressController extends GetxController {
   static AddressController get instance => Get.find();
 
-  final  name = TextEditingController();
-  final  phoneNumber = TextEditingController();
-  final  street = TextEditingController();
-  final  postalCode = TextEditingController();
-  final  city = TextEditingController();
-  final  state = TextEditingController();
-  final  country = TextEditingController();
-  GlobalKey<FormState>addressFormKey = GlobalKey<FormState>();
+  final name = TextEditingController();
+  final phoneNumber = TextEditingController();
+  final street = TextEditingController();
+  final postalCode = TextEditingController();
+  final city = TextEditingController();
+  final state = TextEditingController();
+  final country = TextEditingController();
+  GlobalKey<FormState> addressFormKey = GlobalKey<FormState>();
 
   RxBool refreshData = true.obs;
   final Rx<AddressModel> selectedAddress = AddressModel.empty().obs;
+
   final addressRepository = Get.put(AddressRepository());
+
+  AddressController() {
+    getAllUserAddresses();
+  }
 
   ///Fetch all user specific addresses
   Future<List<AddressModel>> getAllUserAddresses() async {
-    try{
+    try {
       final addresses = await addressRepository.fetchUserAddresses();
-      selectedAddress.value = addresses.firstWhere((element) => element.selectedAddress, orElse:() => AddressModel.empty());
-      return addresses;
 
-    }catch(e){
+      selectedAddress.value = addresses.firstWhere(
+          (element) => element.selectedAddress,
+          orElse: () => AddressModel.empty());
+      return addresses;
+    } catch (e) {
       TLoaders.errorSnackBar(title: 'Address not found', message: e.toString());
       return [];
     }
   }
-  Future selectAddress(AddressModel newSelectedAddress)async{
 
-
-    try{
+  Future selectAddress(AddressModel newSelectedAddress) async {
+    try {
       Get.defaultDialog(
           title: '',
-          onWillPop: () async {return false;},
+          onWillPop: () async {
+            return false;
+          },
           barrierDismissible: false,
           backgroundColor: Colors.transparent,
-          content: const TCircularLoader()
-      );
+          content: const TCircularLoader());
 
       //Clear the selected field
-      if(selectedAddress.value.id.isNotEmpty){
-        await addressRepository.updateSelectedField(selectedAddress.value.id, false);
+      if (selectedAddress.value.id.isNotEmpty) {
+        await addressRepository.updateSelectedField(
+            selectedAddress.value.id, false);
       }
 
       //Assign selected address
@@ -63,29 +71,32 @@ class AddressController extends GetxController{
       selectedAddress.value = newSelectedAddress;
 
       //Set the selected field to true for the newly selected address
-      await addressRepository.updateSelectedField(selectedAddress.value.id, true);
+      await addressRepository.updateSelectedField(
+          selectedAddress.value.id, true);
 
       Get.back();
-    }catch(e){
-      TLoaders.errorSnackBar(title: 'Error in Selection', message: e.toString());
+    } catch (e) {
+      TLoaders.errorSnackBar(
+          title: 'Error in Selection', message: e.toString());
     }
   }
 
   ///Add new Address
-  Future addNewAddresses() async{
-    try{
-        //Start Loading
-      TFullScreenLoader.openLoadingDialog('Storing Address ...', TImages.docerAnimation);
+  Future addNewAddresses() async {
+    try {
+      //Start Loading
+      TFullScreenLoader.openLoadingDialog(
+          'Storing Address ...', TImages.docerAnimation);
 
       //Check Internet Connectivity
       final isConnected = await NetworkManager.instance.isConnected();
-      if(!isConnected){
+      if (!isConnected) {
         TFullScreenLoader.stopLoading();
-        return ;
+        return;
       }
 
       //Form Validation
-      if(!addressFormKey.currentState!.validate()){
+      if (!addressFormKey.currentState!.validate()) {
         TFullScreenLoader.stopLoading();
         return;
       }
@@ -100,8 +111,7 @@ class AddressController extends GetxController{
           state: state.text.trim(),
           postalCode: postalCode.text.trim(),
           country: country.text.trim(),
-        selectedAddress: true
-      );
+          selectedAddress: true);
       final id = await addressRepository.addAddress(address);
 
       //Update Selected Address status
@@ -112,7 +122,9 @@ class AddressController extends GetxController{
       TFullScreenLoader.stopLoading();
 
       //Show Sucess Message
-      TLoaders.successSnackBar(title: 'Congratulations',message: 'Your address has been saved successfully.');
+      TLoaders.successSnackBar(
+          title: 'Congratulations',
+          message: 'Your address has been saved successfully.');
 
       //Refresh Addresses Data
       refreshData.toggle();
@@ -122,55 +134,91 @@ class AddressController extends GetxController{
 
       //Redirect
       Navigator.of(Get.context!).pop();
-    }catch(e){
+    } catch (e) {
+      TFullScreenLoader.stopLoading();
+      TLoaders.errorSnackBar(title: 'Address not found', message: e.toString());
+    }
+  }
+
+  Future<void> deleteAddress(String addressId) async {
+    try {
+      //Start Loading
+      TFullScreenLoader.openLoadingDialog(
+          'Deleting Address ...', TImages.docerAnimation);
+
+      //Delete Address
+      await addressRepository.deleteAddress(addressId);
+
+      //Remove Loader
+      TFullScreenLoader.stopLoading();
+
+      //Show Sucess Message
+      TLoaders.successSnackBar(
+          title: 'Congratulations',
+          message: 'Your address has been deleted successfully.');
+
+      //Refresh Addresses Data
+      refreshData.toggle();
+    } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'Address not found', message: e.toString());
     }
   }
 
   ///Show Addresses ModalBottomSheet at Checkout
-  Future<dynamic> selectNewAddressPopup(BuildContext context){
+  Future<dynamic> selectNewAddressPopup(BuildContext context) {
     return showModalBottomSheet(
         context: context,
-        builder: (_)=> Container(
-          padding: const EdgeInsets.all(TSizes.lg),
-          child:  Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TSectionHeading(title: 'Select Address',showActionButton: false,),
-            Expanded(
-              child: FutureBuilder(
-                future: getAllUserAddresses(),
-                builder: (_, snapshot){
-                  ///Helper Function: Handle Loader No Record, Error message
-                  final response = TCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot);
-                  if(response != null) return response;
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (_, index) => TSingAddress(
-                      address: snapshot.data![index],
-                      onTap: ()async{
-                        await selectAddress(snapshot.data![index]);
-                        Get.back();
-                    },
+        builder: (_) => Container(
+              padding: const EdgeInsets.all(TSizes.lg),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TSectionHeading(
+                    title: 'Select Address',
+                    showActionButton: false,
+                  ),
+                  Expanded(
+                    child: FutureBuilder(
+                      future: getAllUserAddresses(),
+                      builder: (_, snapshot) {
+                        ///Helper Function: Handle Loader No Record, Error message
+                        final response =
+                            TCloudHelperFunctions.checkMultiRecordState(
+                                snapshot: snapshot);
+                        if (response != null) return response;
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (_, index) => TSingAddress(
+                            address: snapshot.data![index],
+                            onTap: () async {
+                              await selectAddress(snapshot.data![index]);
+                              Get.back();
+                            },
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
+                  ),
+                  const SizedBox(
+                    height: TSizes.defaultSpace * 2,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () =>
+                          Get.to(() => const AddNewAddressScreen()),
+                      child: const Text('Add new address'),
+                    ),
+                  )
+                ],
               ),
-            ),
-              const SizedBox(height: TSizes.defaultSpace *2,),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(onPressed: () => Get.to(() => const AddNewAddressScreen()),child: const Text('Add new address'),),
-              )
-            ],
-          ),
-        )
-    );
+            ));
   }
+
   ///Function to reset form fields
-  void resetFormFields(){
+  void resetFormFields() {
     name.clear();
     phoneNumber.clear();
     street.clear();

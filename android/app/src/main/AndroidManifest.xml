@@ -8,7 +8,7 @@
     <uses-feature android:name="android.hardware.telephony"/>
 
     <application
-        android:label="ecommerce_app"
+        android:label="Nesto_Store"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/Theme.MyApp">

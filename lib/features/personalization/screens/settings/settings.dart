@@ -4,6 +4,7 @@ import 'package:ecommerce_app/common/widgets/appbar/app_bar.dart';
 import 'package:ecommerce_app/common/widgets/custom_shapes/container/primary_header_container.dart';
 import 'package:ecommerce_app/common/widgets/texts/section_heading.dart';
 import 'package:ecommerce_app/data/repositories/authentication/authentication_repository.dart';
+import 'package:ecommerce_app/features/authentication/bloc/theme/theme_bloc.dart';
 import 'package:ecommerce_app/features/personalization/screens/address/address.dart';
 import 'package:ecommerce_app/features/personalization/screens/profile/profile.dart';
 import 'package:ecommerce_app/features/personalization/screens/uploadData/upload_data.dart';
@@ -13,6 +14,7 @@ import 'package:ecommerce_app/features/shop/screens/order/order.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -21,6 +23,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.watch<ThemeCubit>().state == ThemeMode.dark;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -149,6 +152,17 @@ class SettingsScreen extends StatelessWidget {
                     trailing: Switch(
                       value: false,
                       onChanged: (value) {},
+                    ),
+                  ),
+                  TSettingsMenuTitle(
+                    icon: Iconsax.moon,
+                    title: 'Theme Mode',
+                    subTitle: 'Set theme mode to be used',
+                    trailing: Switch(
+                      value: isDark,
+                      onChanged: (value) {
+                        context.read<ThemeCubit>().toggleTheme();
+                      },
                     ),
                   ),
                   TSettingsMenuTitle(
