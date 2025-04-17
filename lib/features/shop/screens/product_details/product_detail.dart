@@ -29,7 +29,6 @@ class ProductDetailScreen extends StatelessWidget {
             TProductImageSlider(product: product),
 
             /// 2-product detail
-
             Padding(
               padding: const EdgeInsets.only(
                   left: TSizes.defaultSpace,

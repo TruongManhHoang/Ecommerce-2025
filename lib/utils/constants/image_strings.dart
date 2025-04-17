@@ -8,6 +8,7 @@ class TImages {
   static const String lightAppLogo =
       "assets/logos/t-store-splash-logo-white.png";
   static const String chatBot = "assets/logos/chatbot.png";
+  static const String logoNesto = "assets/logos/nesto_store_dart.png";
 
   // -- Social Logos
   static const String google = "assets/logos/google-icon.png";
@@ -39,6 +40,7 @@ class TImages {
   static const String wranglerlogo = "assets/icons/brands/wrangler.jpg";
   static const String tacvasenlogo = "assets/icons/brands/tacvasen.png";
   static const String mageMalelogo = "assets/icons/brands/mage_male.jpg";
+  static const String jVerLogo = "assets/icons/brands/j_ver.png";
 
   // -- Animations
   static const String productsIllustration =
@@ -274,6 +276,15 @@ class TImages {
       "assets/images/products/mage_male_suit_blazer_grey.png";
   static const String productImage86 =
       "assets/images/products/mage_male_suit_blazer_purple.png";
+
+  static const String productImage87 =
+      "assets/images/products/j_ver_men_shirts_black.png";
+  static const String productImage88 =
+      "assets/images/products/j_ver_men_shirts_grey.png";
+  static const String productImage89 =
+      "assets/images/products/j_ver_men_shirts_purple.png";
+  static const String productImage90 =
+      "assets/images/products/j_ver_men_shirts_white.png";
 
   // -- Product Reviews
   static const String userProfileImage1 =

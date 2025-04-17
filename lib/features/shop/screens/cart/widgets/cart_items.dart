@@ -23,41 +23,77 @@ class TCartItems extends StatelessWidget {
         ),
         itemBuilder: (_, index) => Obx(() {
           final item = cartController.cartItems[index];
-          return Column(
-            children: [
-              /// Cart Item
-              TCartItem(
-                cartItem: item,
-              ),
-              if (showAddRemoveButtons)
-                const SizedBox(
-                  height: TSizes.spaceBtwItems,
+          return Dismissible(
+            key: Key(item.productId),
+            direction: DismissDirection.endToStart,
+            background: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              color: Colors.red,
+              alignment: Alignment.centerRight,
+              child: const Icon(Icons.delete, color: Colors.white),
+            ),
+            confirmDismiss: (direction) async {
+              return await showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: const Text('Are you sure?'),
+                        content: const Text(
+                            'Are you sure you want to remove this item from the cart?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(true),
+                            child: const Text('Delete',
+                                style: TextStyle(color: Colors.red)),
+                          ),
+                        ],
+                      ));
+            },
+            onDismissed: (direction) async {
+              cartController.removeFromCart(item);
+              cartController.refreshCart.toggle();
+            },
+            child: Column(
+              children: [
+                /// Cart Item
+                TCartItem(
+                  cartItem: item,
                 ),
+                if (showAddRemoveButtons)
+                  const SizedBox(
+                    height: TSizes.spaceBtwItems,
+                  ),
 
-              /// Add Remove Button Row  with total Price
-              if (showAddRemoveButtons)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 70,
-                        ),
+                /// Add Remove Button Row  with total Price
+                if (showAddRemoveButtons)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          const SizedBox(
+                            width: 70,
+                          ),
 
-                        ///ADD Remove Buttons
-                        TProductQuantityWithAddRemoveButton(
-                          quantity: item.quantity,
-                          add: () => cartController.addOneToCart(item),
-                          remove: () => cartController.removeOneFromCart(item),
-                        ),
-                      ],
-                    ),
-                    TProductPriceText(
-                        price: (item.price * item.quantity).toStringAsFixed(1))
-                  ],
-                )
-            ],
+                          ///ADD Remove Buttons
+                          TProductQuantityWithAddRemoveButton(
+                            quantity: item.quantity,
+                            add: () => cartController.addOneToCart(item),
+                            remove: () =>
+                                cartController.removeOneFromCart(item),
+                          ),
+                        ],
+                      ),
+                      TProductPriceText(
+                          price:
+                              (item.price * item.quantity).toStringAsFixed(1))
+                    ],
+                  )
+              ],
+            ),
           );
         }),
       ),
