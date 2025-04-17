@@ -19,6 +19,7 @@ class CartController extends GetxController {
   final cartRepository = CartRepository();
   final _auth = FirebaseAuth.instance;
   RxSet<CartItemModel> cartItemsSet = <CartItemModel>{}.obs;
+  RxBool refreshCart = true.obs;
   RxList<CartItemModel> cartItems = <CartItemModel>[].obs;
   final variationController = VariationController.instance;
 
@@ -33,8 +34,10 @@ class CartController extends GetxController {
 
     final products = await cartRepository.getCartProducts(userId);
     cartItems.assignAll(products);
-    totalCartPrice.value =
-        cartItems.map((e) => e.price * e.quantity).fold(0.0, (a, b) => a + b);
+    totalCartPrice.value = double.parse(cartItems
+        .map((e) => e.price * e.quantity)
+        .fold(0.0, (a, b) => a + b)
+        .toStringAsFixed(2));
     noOfCartItems.value = cartItems.length;
   }
 
@@ -103,6 +106,20 @@ class CartController extends GetxController {
     updateCart();
   }
 
+  void removeFromCart(CartItemModel item) {
+    cartItems.removeWhere((cartItem) =>
+        cartItem.productId == item.productId &&
+        cartItem.variationId == item.variationId);
+
+    cartRepository.removeProductFromCart(
+      _auth.currentUser!.uid,
+      item.productId,
+    );
+
+    updateCart();
+    TLoaders.customToast(message: 'Product removed from the Cart.');
+  }
+
   void removeOneFromCart(
     CartItemModel item,
   ) {
@@ -115,34 +132,13 @@ class CartController extends GetxController {
         cartItems[index].quantity -= 1;
       } else {
         //Show dialog before completely removing
-        cartItems[index].quantity == 1
-            ? removeFromCartDialog(index, item.productId)
-            : cartItems.removeAt(index);
+        // if (cartItems[index].quantity == 1) {
+        //   cartItems.removeAt(index);
+        // }
       }
+      refreshCart.toggle();
       updateCart();
     }
-  }
-
-  void removeFromCartDialog(int index, String productId) {
-    Get.defaultDialog(
-      title: 'Remove Product',
-      middleText: 'Are you sure you want to remove this product?',
-      textConfirm: 'OK',
-      textCancel: 'Cancel',
-      buttonColor: TColors.primary,
-      onConfirm: () {
-        //Remove the item from the cart
-        cartItems.removeAt(index);
-        cartRepository.removeProductFromCart(
-          _auth.currentUser!.uid,
-          productId,
-        );
-        updateCart();
-        TLoaders.customToast(message: 'Product removed from the Cart.');
-        Get.back();
-      },
-      onCancel: () => () => Get.back(),
-    );
   }
 
   ///-- Initialize already added Item's Count in the cart/

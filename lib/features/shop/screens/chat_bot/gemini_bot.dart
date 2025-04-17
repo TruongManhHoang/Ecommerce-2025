@@ -1,7 +1,9 @@
 import 'package:ecommerce_app/features/shop/models/message_model.dart';
 import 'package:ecommerce_app/features/shop/screens/chat_bot/widgets/user_prompt_item.dart';
+import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
 class GeminiBot extends StatefulWidget {
@@ -23,10 +25,9 @@ class _GeminiBotState extends State<GeminiBot> {
   @override
   void initState() {
     super.initState();
-    _sendInitialMessage(); // Chatbot gửi tin nhắn đầu tiên
+    _sendInitialMessage();
   }
 
-  /// Hàm tự động cuộn đến cuối danh sách sau khi frame được render
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (scrollController.hasClients) {
@@ -82,10 +83,21 @@ class _GeminiBotState extends State<GeminiBot> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[100],
+      backgroundColor: Colors.blue[750],
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Iconsax.arrow_left,
+                color: Colors.grey,
+              )),
+        ),
         elevation: 3,
-        backgroundColor: Colors.blue[100],
         title: const Text('AI ChatBot'),
       ),
       body: Column(
@@ -115,7 +127,7 @@ class _GeminiBotState extends State<GeminiBot> {
                     decoration: InputDecoration(
                       hintText: 'Nhập câu trả lời...',
                       hintStyle:
-                          const TextStyle(color: Colors.black, fontSize: 18),
+                          const TextStyle(color: Colors.grey, fontSize: 18),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),

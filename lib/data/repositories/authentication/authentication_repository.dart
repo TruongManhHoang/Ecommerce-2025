@@ -137,7 +137,7 @@ class AuthenticationRepository extends GetxController {
       textConfirm: 'Logout',
       textCancel: 'Cancel',
       confirmTextColor: Colors.white,
-      cancelTextColor: Colors.black,
+      cancelTextColor: Colors.red,
       onConfirm: () {
         logout();
       },

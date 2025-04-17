@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:ecommerce_app/common/widgets/loaders/animation_loader.dart';
 import 'package:ecommerce_app/features/shop/controller/product/order_controller.dart';
+import 'package:ecommerce_app/features/shop/screens/order/order_detail.dart';
 import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
@@ -43,128 +44,137 @@ class TOrderListItems extends StatelessWidget {
             itemCount: orders.length,
             itemBuilder: (_, index) {
               final order = orders[index];
-              return TRoundedContainer(
-                showBorder: true,
-                backgroundColor: dark ? TColors.dark : TColors.light,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        /// Icon
-                        const Icon(Iconsax.ship),
-                        const SizedBox(
-                          width: TSizes.spaceBtwItems / 2,
-                        ),
-
-                        /// Status and date
-                        Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                order.orderStatusText,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .apply(
-                                        color: TColors.primary,
-                                        fontWeightDelta: 1),
-                              ),
-                              Text(
-                                order.formattedOrderDate,
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                              ),
-                            ],
+              return GestureDetector(
+                onTap: () {
+                  Get.to(() => OrderDetail(
+                        orderModel: order,
+                      ));
+                },
+                child: TRoundedContainer(
+                  showBorder: true,
+                  backgroundColor: dark ? TColors.dark : TColors.light,
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          /// Icon
+                          const Icon(Iconsax.ship),
+                          const SizedBox(
+                            width: TSizes.spaceBtwItems / 2,
                           ),
-                        ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Iconsax.arrow_right_34,
-                              size: TSizes.iconSm,
-                            ))
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              /// Icon
-                              const Icon(Iconsax.tag),
-                              const SizedBox(
-                                width: TSizes.spaceBtwItems / 2,
-                              ),
 
-                              /// Status and date
-                              Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Order',
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium,
-                                    ),
-                                    Text(
-                                      order.id,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
-                                    ),
-                                  ],
+                          /// Status and date
+                          Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  order.orderStatusText,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .apply(
+                                          color: TColors.primary,
+                                          fontWeightDelta: 1),
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  order.formattedOrderDate,
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              /// Icon
-                              const Icon(Iconsax.calendar),
-                              const SizedBox(
-                                width: TSizes.spaceBtwItems / 2,
-                              ),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Iconsax.arrow_right_34,
+                                size: TSizes.iconSm,
+                              ))
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Row(
+                              children: [
+                                /// Icon
+                                const Icon(Iconsax.tag),
+                                const SizedBox(
+                                  width: TSizes.spaceBtwItems / 2,
+                                ),
 
-                              /// Status and date
-                              Expanded(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Shipping Date',
+                                /// Status and date
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Order',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .labelMedium),
-                                    Text(
-                                      order.formattedDeliveryDate,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium,
-                                    ),
-                                  ],
+                                            .labelMedium,
+                                      ),
+                                      Text(
+                                        order.id,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          Expanded(
+                            child: Row(
+                              children: [
+                                /// Icon
+                                const Icon(Iconsax.calendar),
+                                const SizedBox(
+                                  width: TSizes.spaceBtwItems / 2,
+                                ),
+
+                                /// Status and date
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Shipping Date',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelMedium),
+                                      Text(
+                                        order.formattedDeliveryDate,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               );
             });

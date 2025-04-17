@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_app/common/widgets/success_screen/success_screen.dart';
 import 'package:ecommerce_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecommerce_app/data/repositories/order/order_repository.dart';
@@ -15,7 +14,7 @@ import 'package:get/get.dart';
 
 import '../../models/order_model.dart';
 
-class OrderController extends GetxController{
+class OrderController extends GetxController {
   static OrderController get instance => Get.find();
 
   final cartController = CartController.instance;
@@ -24,25 +23,26 @@ class OrderController extends GetxController{
   final orderRepository = Get.put(OrderRepository());
 
   /// Fetch user's order history
-  Future<List<OrderModel>> fetchUserOrders()async{
-    try{
+  Future<List<OrderModel>> fetchUserOrders() async {
+    try {
       final userOrder = await orderRepository.fetchUserOrders();
       return userOrder;
-    }catch(e){
+    } catch (e) {
       TLoaders.warningSnackBar(title: 'On Snap!', message: e.toString());
       return [];
     }
   }
 
   ///Add method for order processing
-  void processOrder(double totalAmount) async{
-    try{
+  void processOrder(double totalAmount) async {
+    try {
       //Start loader
-      TFullScreenLoader.openLoadingDialog('Processing your order', TImages.pencilAnimation);
+      TFullScreenLoader.openLoadingDialog(
+          'Processing your order', TImages.pencilAnimation);
 
       //Get user authentication id
       final userId = AuthenticationRepository.instance.authUser!.uid;
-      if(userId.isEmpty) return;
+      if (userId.isEmpty) return;
 
       //Add Details
       final order = OrderModel(
@@ -59,7 +59,6 @@ class OrderController extends GetxController{
         deliveryDate: DateTime.now(),
         items: cartController.cartItems.toList(),
       );
-
       //Save the order to Firestore
       await orderRepository.saveOrder(order, userId);
       //update the cart Status
@@ -67,14 +66,13 @@ class OrderController extends GetxController{
 
       //Show Success screen
       Get.off(() => SuccessScreen(
-        image: TImages.orderCompletedAnimation,
-        title: 'Payment Success!',
-        subTitle: 'Your item will be shipped soon!',
-        onPress: () => Get.offAll(()=> const NavigationMenu()),
-      ));
-    }catch(e){
+            image: TImages.orderCompletedAnimation,
+            title: 'Payment Success!',
+            subTitle: 'Your item will be shipped soon!',
+            onPress: () => Get.offAll(() => const NavigationMenu()),
+          ));
+    } catch (e) {
       TLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
     }
   }
-
 }
