@@ -62,7 +62,6 @@ class OrderController extends GetxController {
       //Save the order to Firestore
       await orderRepository.saveOrder(order, userId);
       //update the cart Status
-      cartController.clearCart();
 
       //Show Success screen
       Get.off(() => SuccessScreen(

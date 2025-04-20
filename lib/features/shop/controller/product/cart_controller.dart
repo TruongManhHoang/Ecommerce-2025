@@ -237,6 +237,13 @@ class CartController extends GetxController {
 
   void clearCart() {
     productQuantityInCart.value = 0;
+
+    // Duyệt tất cả item trong giỏ hàng để xoá theo productId
+    for (var item in cartItems) {
+      cartRepository.removeProductFromCart(
+          _auth.currentUser!.uid, item.productId);
+    }
+
     cartItems.clear();
     updateCart();
   }

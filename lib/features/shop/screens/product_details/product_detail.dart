@@ -1,5 +1,8 @@
 import 'package:ecommerce_app/common/widgets/texts/section_heading.dart';
+import 'package:ecommerce_app/features/personalization/controllers/user_controller.dart';
+import 'package:ecommerce_app/features/shop/controller/product/review_controller.dart';
 import 'package:ecommerce_app/features/shop/models/product_model.dart';
+import 'package:ecommerce_app/features/shop/screens/order/widgets/dialog_review.dart';
 import 'package:ecommerce_app/features/shop/screens/product_details/widgets/bottom_add_to_cart_widget.dart';
 import 'package:ecommerce_app/features/shop/screens/product_details/widgets/product_attributes.dart';
 import 'package:ecommerce_app/features/shop/screens/product_details/widgets/product_detail_image_slider.dart';
@@ -20,6 +23,8 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final reviewController = Get.put(ReviewController());
+    final userController = UserController.instance;
     return Scaffold(
       bottomNavigationBar: TBottomAddToCart(product: product),
       body: SingleChildScrollView(
@@ -77,22 +82,29 @@ class ProductDetailScreen extends StatelessWidget {
                   const SizedBox(
                     height: TSizes.spaceBtwItems,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TSectionHeading(
-                        title: 'Reviews(199)',
-                        onPressed: () {},
-                        showActionButton: false,
-                      ),
-                      IconButton(
-                          onPressed: () =>
-                              Get.to(() => const ProductReviewScreen()),
-                          icon: const Icon(
-                            Iconsax.arrow_right_3,
-                            size: 18,
-                          )),
-                    ],
+                  FutureBuilder(
+                    future: reviewController.fetchProductReviews(product.id),
+                    builder: (context, snapshot) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TSectionHeading(
+                            title:
+                                'Reviews(${reviewController.reviews.length})',
+                            onPressed: () {},
+                            showActionButton: false,
+                          ),
+                          IconButton(
+                              onPressed: () => Get.to(() => ProductReviewScreen(
+                                    productId: product.id,
+                                  )),
+                              icon: const Icon(
+                                Iconsax.arrow_right_3,
+                                size: 18,
+                              )),
+                        ],
+                      );
+                    },
                   ),
                   const SizedBox(
                     height: TSizes.spaceBtwSections,

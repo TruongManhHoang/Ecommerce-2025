@@ -4,6 +4,7 @@ import 'package:ecommerce_app/features/shop/controller/product/cart_controller.d
 import 'package:ecommerce_app/features/shop/controller/product/checkout_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/product/favourites_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/product/order_controller.dart';
+import 'package:ecommerce_app/features/shop/controller/product/review_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/product/variation_controller.dart';
 import 'package:ecommerce_app/utils/helpers/network_manager.dart';
 import 'package:get/get.dart';
@@ -19,5 +20,6 @@ class GeneralBindings extends Bindings {
     Get.put(OrderController());
     Get.put(BannerController());
     Get.put(FavouritesController());
+    Get.put(ReviewController());
   }
 }

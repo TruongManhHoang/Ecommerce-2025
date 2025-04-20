@@ -11,6 +11,7 @@ import 'package:ecommerce_app/features/personalization/screens/uploadData/upload
 import 'package:ecommerce_app/features/shop/screens/cart/cart.dart';
 import 'package:ecommerce_app/features/shop/screens/chat_bot/gemini_bot.dart';
 import 'package:ecommerce_app/features/shop/screens/order/order.dart';
+import 'package:ecommerce_app/features/shop/screens/review/review.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +85,12 @@ class SettingsScreen extends StatelessWidget {
                     title: 'My Orders',
                     subTitle: 'In-progress and Completed Orders',
                     onTap: () => Get.to(() => const OrderScreen()),
+                  ),
+                  TSettingsMenuTitle(
+                    icon: Iconsax.note_text,
+                    title: 'My Reviews',
+                    subTitle: 'All the reviews you have made',
+                    onTap: () => Get.to(() => const MyReviewScreen()),
                   ),
                   TSettingsMenuTitle(
                     icon: Iconsax.bank,
