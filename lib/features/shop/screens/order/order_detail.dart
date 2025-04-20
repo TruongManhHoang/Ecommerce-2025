@@ -37,7 +37,59 @@ class OrderDetail extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.all(TSizes.defaultSpace),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: dark ? Colors.grey[800] : Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: dark ? Colors.black54 : Colors.grey[300]!,
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Giao hàng thành công',
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                color: Colors.green,
+                              ),
+                    ),
+                    Gap(10),
+                    Row(
+                      children: [
+                        const Icon(Iconsax.calendar_1),
+                        const Gap(TSizes.spaceBtwItems),
+                        Text(
+                          orderModel.formattedOrderDate,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ],
+                    ),
+                    const Gap(TSizes.spaceBtwItems),
+                    Row(
+                      children: [
+                        const Icon(Iconsax.car),
+                        const Gap(TSizes.spaceBtwItems),
+                        Text(
+                          orderModel.formattedOrderDate,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              const Gap(TSizes.spaceBtwSections),
+
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: dark ? Colors.grey[800] : Colors.white,
                   borderRadius: BorderRadius.circular(8),
@@ -59,7 +111,6 @@ class OrderDetail extends StatelessWidget {
                                 color: dark ? Colors.white : Colors.black,
                               ),
                     ),
-                    const Gap(TSizes.spaceBtwItems),
                     Row(
                       children: [
                         Icon(
@@ -74,7 +125,7 @@ class OrderDetail extends StatelessWidget {
                               Text(
                                   '${controller.user.value.fullName}, ${orderModel.address!.phoneNumber}'),
                               Text(
-                                '${orderModel.address!.street}, ${orderModel.address!.name}, ${orderModel.address!.city}, ${orderModel.address!.country}',
+                                '${orderModel.address!.street}, ${orderModel.address!.name}, ${orderModel.address!.city}, ${orderModel.address!.country},',
                               ),
                             ],
                           ),

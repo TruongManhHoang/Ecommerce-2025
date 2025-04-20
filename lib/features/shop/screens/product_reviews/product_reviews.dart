@@ -1,49 +1,103 @@
 import 'package:ecommerce_app/common/widgets/appbar/app_bar.dart';
 import 'package:ecommerce_app/common/widgets/product/ratings/rating_indicator.dart';
+import 'package:ecommerce_app/features/personalization/controllers/user_controller.dart';
+import 'package:ecommerce_app/features/personalization/models/userModel.dart';
+import 'package:ecommerce_app/features/shop/controller/product/review_controller.dart';
+import 'package:ecommerce_app/features/shop/models/review_model.dart';
 import 'package:ecommerce_app/features/shop/screens/product_reviews/widgets/rating_progress_indicator.dart';
 import 'package:ecommerce_app/features/shop/screens/product_reviews/widgets/user_review_cart.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class ProductReviewScreen extends StatelessWidget {
-  const ProductReviewScreen({super.key});
-
+  ProductReviewScreen({
+    super.key,
+    this.productId,
+  });
+  final productId;
+  final reviewController = ReviewController.instance;
+  final userController = UserController.instance;
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       ///appbar
-      appBar: const TAppBar(title: Text('Review & Ratings'),showBackArrow: true,),
+      appBar: const TAppBar(
+        title: Text('Review & Ratings'),
+        showBackArrow: true,
+      ),
+
       ///body
       body: SingleChildScrollView(
-
         child: Padding(
           padding: const EdgeInsets.all(TSizes.defaultSpace),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+          child: Obx(() {
+            final reviews = reviewController.reviews;
 
-              const Text('Ratings and reviews are verified and are from people who use the same type of device that you use.'),
-              const SizedBox(height: TSizes.spaceBtwItems,),
-              ///Overall Product Ratings
-              const TOverallProductRating(),
-              const TRatingBarIndicator(rating: 3.5,),
-              Text('12,611', style: Theme.of(context).textTheme.bodySmall,),
-              const SizedBox(height: TSizes.spaceBtwSections,),
+            if (reviews.isEmpty) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Text(
+                    'No reviews yet!',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+              );
+            }
 
-              ///User Reviews List
-              const UserReviewCard(),
-              const UserReviewCard(),
-              const UserReviewCard(),
-              const UserReviewCard(),
-            ],
-          ),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ///User Reviews List
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: reviews.length,
+                  itemBuilder: (context, index) {
+                    final review = reviews[index];
+
+                    /// Lấy ra item khớp productId
+                    final matchedItem = review.items.firstWhere(
+                      (item) => item.productId == productId,
+                    );
+
+                    if (matchedItem == null) return const SizedBox();
+
+                    return FutureBuilder<UserModel>(
+                      future: userController.fetchUserById(review.userId),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        }
+
+                        if (!snapshot.hasData) {
+                          return const Text('Không thể tải người dùng');
+                        }
+
+                        final user = snapshot.data!;
+                        return Column(
+                          children: [
+                            UserReviewCard(
+                              cartItemModel: matchedItem,
+                              productId: productId,
+                              reviewModel: review,
+                              userModel: user,
+                            ),
+                            const Gap(TSizes.spaceBtwSections)
+                          ],
+                        );
+                      },
+                    );
+                  },
+                )
+              ],
+            );
+          }),
         ),
       ),
     );
   }
 }
-
-
-
-
-

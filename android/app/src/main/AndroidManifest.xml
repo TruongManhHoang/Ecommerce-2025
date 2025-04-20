@@ -11,6 +11,7 @@
         android:label="Nesto_Store"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
+        android:enableOnBackInvokedCallback="true"
         android:theme="@style/Theme.MyApp">
 
         <activity

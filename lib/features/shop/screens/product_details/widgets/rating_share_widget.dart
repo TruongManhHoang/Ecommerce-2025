@@ -15,20 +15,28 @@ class TRatingAndShare extends StatelessWidget {
         ///Rating
         Row(
           children: [
-            const Icon(Iconsax.star5, color: Colors.amber,size: 16,),
-            const SizedBox(width: TSizes.spaceBtwItems /2,),
-            Text.rich(
-                TextSpan(
-                    children: [
-                      TextSpan(text: '5.0',style: Theme.of(context).textTheme.bodyLarge),
-                      const TextSpan(text: '(199)'),
-                    ]
-                )
+            const Icon(
+              Iconsax.star5,
+              color: Colors.amber,
+              size: 16,
             ),
+            const SizedBox(
+              width: TSizes.spaceBtwItems / 2,
+            ),
+            Text.rich(TextSpan(children: [
+              TextSpan(
+                  text: '5.0', style: Theme.of(context).textTheme.bodyLarge),
+            ])),
           ],
         ),
+
         ///Share button
-        IconButton(onPressed: (){}, icon: const Icon(Icons.share, size: TSizes.iconMd,))
+        IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.share,
+              size: TSizes.iconMd,
+            ))
       ],
     );
   }
