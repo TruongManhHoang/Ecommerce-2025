@@ -13,6 +13,32 @@ import '../../features/shop/models/category_model.dart';
 class TDummyData {
   // ///- Banners
   static final List<BannerModel> banners = [
+    // BannerModel(
+    //     imageUrl: TImages.banner1, targetScreen: TRoutes.order, active: false),
+    // BannerModel(
+    //     imageUrl: TImages.banner2, targetScreen: TRoutes.cart, active: true),
+    // BannerModel(
+    //     imageUrl: TImages.banner3,
+    //     targetScreen: TRoutes.favourites,
+    //     active: true),
+    // BannerModel(
+    //     imageUrl: TImages.banner4, targetScreen: TRoutes.search, active: true),
+    // BannerModel(
+    //     imageUrl: TImages.banner5,
+    //     targetScreen: TRoutes.settings,
+    //     active: true),
+    // BannerModel(
+    //     imageUrl: TImages.banner6,
+    //     targetScreen: TRoutes.userAddress,
+    //     active: true),
+    //     BannerModel(
+    //     imageUrl: TImages.banner6,
+    //     targetScreen: TRoutes.userAddress,
+    //     active: true),
+    // BannerModel(
+    //     imageUrl: TImages.banner8,
+    //     targetScreen: TRoutes.checkout,
+    //     active: false),
     BannerModel(
         imageUrl: TImages.banner1, targetScreen: TRoutes.order, active: false),
     BannerModel(
@@ -32,6 +58,10 @@ class TDummyData {
         targetScreen: TRoutes.userAddress,
         active: true),
     BannerModel(
+        imageUrl: TImages.banner7,
+        targetScreen: TRoutes.userAddress,
+        active: true),
+    BannerModel(
         imageUrl: TImages.banner8,
         targetScreen: TRoutes.checkout,
         active: false),
@@ -48,20 +78,20 @@ class TDummyData {
     // ProductCategoryModel(productId: '007', categoryId: '5'),
     // ProductCategoryModel(productId: '008', categoryId: '6'),
     // ProductCategoryModel(productId: '009', categoryId: '6'),
-    ProductCategoryModel(productId: '010', categoryId: '3'),
+    // ProductCategoryModel(productId: '010', categoryId: '3'),
+    // ProductCategoryModel(productId: '011', categoryId: '1'),
+    ProductCategoryModel(productId: '012', categoryId: '2'),
   ];
   static final List<BrandCategoryModel> brandCategory = [
-    BrandCategoryModel(brandId: '1', categoryId: '2'),
-    BrandCategoryModel(brandId: '2', categoryId: '2'),
-    BrandCategoryModel(brandId: '3', categoryId: '2'),
-    BrandCategoryModel(brandId: '1', categoryId: '7'),
-    BrandCategoryModel(brandId: '1', categoryId: '1'),
-    BrandCategoryModel(brandId: '2', categoryId: '1'),
-    BrandCategoryModel(brandId: '3', categoryId: '1'),
-    BrandCategoryModel(brandId: '4', categoryId: '6'),
-    BrandCategoryModel(brandId: '2', categoryId: '5'),
-    BrandCategoryModel(brandId: '3', categoryId: '8'),
-    BrandCategoryModel(brandId: '5', categoryId: '3'),
+    // BrandCategoryModel(brandId: '1', categoryId: '2'),
+    // BrandCategoryModel(brandId: '1', categoryId: '7'),
+    // BrandCategoryModel(brandId: '3', categoryId: '1'),
+    // BrandCategoryModel(brandId: '4', categoryId: '6'),
+    // BrandCategoryModel(brandId: '2', categoryId: '5'),
+    // BrandCategoryModel(brandId: '3', categoryId: '8'),
+    // BrandCategoryModel(brandId: '5', categoryId: '3'),
+    // BrandCategoryModel(brandId: '6', categoryId: '2'),
+    BrandCategoryModel(brandId: '2', categoryId: '4')
   ];
   static final List<BrandModel> brands = [
     BrandModel(
@@ -92,6 +122,12 @@ class TDummyData {
         id: '5',
         image: TImages.jVerLogo,
         name: 'J.Ver',
+        productsCount: 265,
+        isFeatured: true),
+    BrandModel(
+        id: '6',
+        image: TImages.esableLogo,
+        name: 'Esabel.C',
         productsCount: 265,
         isFeatured: true),
   ];
@@ -1077,31 +1113,276 @@ class TDummyData {
     //     ],
     //     productType: 'ProductType.variable',
     //     date: DateTime.now()),
+    // ProductModel(
+    //     id: '010',
+    //     title: 'J.VER Men\'s Dress Shirts Solid Long Sleeve Stretch Wrinkle',
+    //     stock: 20,
+    //     price: 24.99,
+    //     isFeatured: true,
+    //     thumbnail: TImages.productImage87,
+    //     description:
+    //         'Flex Fabric: The long sleeve dress shirt is made of stretch fabric,makes you move body easier;soft and comfortable with good breathability.\n'
+    //         'Wrinkle Free: The combination of high-quality fabrics and special technology makes the solid dress shirt not easy to wrinkle, easy to care.The classic spread collar easily matches with a tie or bow tie.\n'
+    //         'Occasion: Business/ Wedding/ Party/ Dating/ Office/ Nightclub, whether for formal occasions or daily casual, this mens dress shirt is a perfect choice. The classic design ensures it\'s a staple in any wardrobe.\n'
+    //         'Size: Our button down shirts are US regular fit tailoring style,a variety of sizes and colors for you to choose,please refer to the size chart to choose the size that suits you',
+    //     brand: BrandModel(
+    //         id: '5', image: TImages.jVerLogo, name: 'J.Ver', isFeatured: true),
+    //     images: [
+    //       TImages.productImage87,
+    //       TImages.productImage88,
+    //       TImages.productImage89,
+    //       TImages.productImage90,
+    //     ],
+    //     sku: 'ABR4578',
+    //     categoryId: '3',
+    //     productAttributes: [
+    //       ProductAttributeModel(
+    //           name: 'Color', values: ['Black', 'Grey', 'Purple', 'White']),
+    //       ProductAttributeModel(name: 'Size', values: [
+    //         'L',
+    //         'XL',
+    //         'XXL',
+    //         'XXXL',
+    //       ]),
+    //     ],
+    //     productVariations: [
+    //       ProductVariationModel(
+    //           id: '1',
+    //           stock: 15,
+    //           price: 24.99,
+    //           image: TImages.productImage87,
+    //           attributeValues: {'Color': 'Black', 'Size': 'L'}),
+    //       ProductVariationModel(
+    //           id: '2',
+    //           stock: 15,
+    //           price: 24.99,
+    //           image: TImages.productImage87,
+    //           attributeValues: {'Color': 'Black', 'Size': 'XL'}),
+    //       ProductVariationModel(
+    //           id: '3',
+    //           stock: 5,
+    //           price: 24.99,
+    //           image: TImages.productImage87,
+    //           attributeValues: {'Color': 'Black', 'Size': 'XXL'}),
+    //       ProductVariationModel(
+    //           id: '4',
+    //           stock: 5,
+    //           price: 24.99,
+    //           image: TImages.productImage87,
+    //           attributeValues: {'Color': 'Black', 'Size': 'XXXL'}),
+    //       ProductVariationModel(
+    //           id: '5',
+    //           stock: 20,
+    //           price: 24.99,
+    //           image: TImages.productImage88,
+    //           attributeValues: {'Color': 'Grey', 'Size': 'L'}),
+    //       ProductVariationModel(
+    //           id: '6',
+    //           price: 24.99,
+    //           stock: 10,
+    //           image: TImages.productImage88,
+    //           attributeValues: {'Color': 'Grey', 'Size': 'XL'}),
+    //       ProductVariationModel(
+    //           id: '7',
+    //           stock: 20,
+    //           price: 24.99,
+    //           image: TImages.productImage88,
+    //           attributeValues: {'Color': 'Grey', 'Size': 'XXL'}),
+    //       ProductVariationModel(
+    //           id: '8',
+    //           stock: 20,
+    //           price: 24.99,
+    //           image: TImages.productImage88,
+    //           attributeValues: {'Color': 'Grey', 'Size': 'XXXL'}),
+    //       ProductVariationModel(
+    //           id: '9',
+    //           stock: 20,
+    //           price: 24.99,
+    //           image: TImages.productImage89,
+    //           attributeValues: {'Color': 'Purple', 'Size': 'M'}),
+    //       ProductVariationModel(
+    //           id: '10',
+    //           stock: 10,
+    //           price: 24.99,
+    //           image: TImages.productImage89,
+    //           attributeValues: {'Color': 'Purple', 'Size': 'L'}),
+    //       ProductVariationModel(
+    //           id: '11',
+    //           stock: 30,
+    //           price: 24.99,
+    //           image: TImages.productImage89,
+    //           attributeValues: {'Color': 'Purple', 'Size': 'XL'}),
+    //       ProductVariationModel(
+    //           id: '12',
+    //           stock: 20,
+    //           price: 24.99,
+    //           image: TImages.productImage89,
+    //           attributeValues: {'Color': 'Purple', 'Size': 'XXL'}),
+    //       ProductVariationModel(
+    //           id: '13',
+    //           stock: 5,
+    //           price: 24.99,
+    //           image: TImages.productImage90,
+    //           attributeValues: {'Color': 'White', 'Size': 'L'}),
+    //       ProductVariationModel(
+    //           id: '14',
+    //           stock: 11,
+    //           price: 24.99,
+    //           image: TImages.productImage90,
+    //           attributeValues: {'Color': 'White', 'Size': 'XL'}),
+    //       ProductVariationModel(
+    //           id: '15',
+    //           stock: 20,
+    //           price: 24.99,
+    //           image: TImages.productImage90,
+    //           attributeValues: {'Color': 'White', 'Size': 'XXL'}),
+    //       ProductVariationModel(
+    //           id: '16',
+    //           stock: 20,
+    //           price: 24.99,
+    //           image: TImages.productImage90,
+    //           attributeValues: {'Color': 'White', 'Size': 'XXXL'}),
+    //     ],
+    //     productType: 'ProductType.variable',
+    //     date: DateTime.now()),
+    // ProductModel(
+    //     id: '011',
+    //     title: 'The Children\'s Place Boy\'s Stretch Skinny Chino Pants',
+    //     stock: 20,
+    //     price: 8.64,
+    //     isFeatured: true,
+    //     thumbnail: TImages.productImage91,
+    //     description: 'Made of 97% Cotton, 3% Spandex Twill.\n'
+    //         'Super soft in a cotton blend with a little stretch for comfort all day.\n'
+    //         'A skinny silhouette with belt loops, zip fly with button closure, and side slant pockets.\n'
+    //         'A sleek no-fuss pant for any time and any place; pairs well with his favorite tops',
+    //     brand: BrandModel(
+    //         id: '3',
+    //         image: TImages.wranglerlogo,
+    //         name: 'Wrangler',
+    //         isFeatured: true),
+    //     images: [
+    //       TImages.productImage91,
+    //       TImages.productImage92,
+    //       TImages.productImage93,
+    //       TImages.productImage94,
+    //     ],
+    //     sku: 'ABR4579',
+    //     categoryId: '1',
+    //     productAttributes: [
+    //       ProductAttributeModel(
+    //           name: 'Color', values: ['Black', 'Brown', 'Red', 'White']),
+    //       ProductAttributeModel(name: 'Size', values: [
+    //         'L',
+    //         'XL',
+    //         'XXL',
+    //       ]),
+    //     ],
+    //     productVariations: [
+    //       ProductVariationModel(
+    //           id: '1',
+    //           stock: 15,
+    //           price: 8.64,
+    //           image: TImages.productImage91,
+    //           attributeValues: {'Color': 'Black', 'Size': 'L'}),
+    //       ProductVariationModel(
+    //           id: '2',
+    //           stock: 15,
+    //           price: 8.64,
+    //           image: TImages.productImage91,
+    //           attributeValues: {'Color': 'Black', 'Size': 'XL'}),
+    //       ProductVariationModel(
+    //           id: '3',
+    //           stock: 5,
+    //           price: 8.64,
+    //           image: TImages.productImage91,
+    //           attributeValues: {'Color': 'Black', 'Size': 'XXL'}),
+    //       ProductVariationModel(
+    //           id: '4',
+    //           stock: 20,
+    //           price: 8.64,
+    //           image: TImages.productImage92,
+    //           attributeValues: {'Color': 'Brown', 'Size': 'L'}),
+    //       ProductVariationModel(
+    //           id: '5',
+    //           price: 8.64,
+    //           stock: 10,
+    //           image: TImages.productImage92,
+    //           attributeValues: {'Color': 'Brown', 'Size': 'XL'}),
+    //       ProductVariationModel(
+    //           id: '6',
+    //           stock: 20,
+    //           price: 8.64,
+    //           image: TImages.productImage92,
+    //           attributeValues: {'Color': 'Brown', 'Size': 'XXL'}),
+    //       ProductVariationModel(
+    //           id: '7',
+    //           stock: 10,
+    //           price: 8.64,
+    //           image: TImages.productImage93,
+    //           attributeValues: {'Color': 'Red', 'Size': 'L'}),
+    //       ProductVariationModel(
+    //           id: '8',
+    //           stock: 30,
+    //           price: 8.64,
+    //           image: TImages.productImage93,
+    //           attributeValues: {'Color': 'Red', 'Size': 'XL'}),
+    //       ProductVariationModel(
+    //           id: '9',
+    //           stock: 20,
+    //           price: 8.64,
+    //           image: TImages.productImage93,
+    //           attributeValues: {'Color': 'Red', 'Size': 'XXL'}),
+    //       ProductVariationModel(
+    //           id: '10',
+    //           stock: 5,
+    //           price: 8.64,
+    //           image: TImages.productImage94,
+    //           attributeValues: {'Color': 'White', 'Size': 'L'}),
+    //       ProductVariationModel(
+    //           id: '11',
+    //           stock: 11,
+    //           price: 8.64,
+    //           image: TImages.productImage94,
+    //           attributeValues: {'Color': 'White', 'Size': 'XL'}),
+    //       ProductVariationModel(
+    //           id: '12',
+    //           stock: 20,
+    //           price: 8.64,
+    //           image: TImages.productImage94,
+    //           attributeValues: {'Color': 'White', 'Size': 'XXL'}),
+    //     ],
+    //     productType: 'ProductType.variable',
+    //     date: DateTime.now()),
     ProductModel(
-        id: '010',
-        title: 'J.VER Men\'s Dress Shirts Solid Long Sleeve Stretch Wrinkle',
+        id: '012',
+        title:
+            'Esabel.C Jacquard Golf Shirts for Men Moisture Wicking Short Sleeve',
         stock: 20,
-        price: 24.99,
+        price: 19.99,
         isFeatured: true,
-        thumbnail: TImages.productImage87,
+        thumbnail: TImages.productImage95,
         description:
-            'Flex Fabric: The long sleeve dress shirt is made of stretch fabric,makes you move body easier;soft and comfortable with good breathability.\n'
-            'Wrinkle Free: The combination of high-quality fabrics and special technology makes the solid dress shirt not easy to wrinkle, easy to care.The classic spread collar easily matches with a tie or bow tie.\n'
-            'Occasion: Business/ Wedding/ Party/ Dating/ Office/ Nightclub, whether for formal occasions or daily casual, this mens dress shirt is a perfect choice. The classic design ensures it\'s a staple in any wardrobe.\n'
-            'Size: Our button down shirts are US regular fit tailoring style,a variety of sizes and colors for you to choose,please refer to the size chart to choose the size that suits you',
+            'Premium Jacquard Fabric: Our mens golf shirts short sleeve made from 87%Nylon 13%Spandex Jacquard, more fashion and comfortable, has higher wear resistance and breathability.\n'
+            'Clean Hidden Placket :The mens polo shirts feature a sleek hidden placket, three buttons—first a classic polo button, next two press buttons—add a touch of sophistication.Creating a look of clean and natural.\n'
+            'Four-Way Stretch : Mens polo shirts are designed with remarkable elasticity and 4-way stretch farbic. Fits great and moves well with body movement.\n'
+            'Suitable for Various Occasions : Our golf shirts for men short sleeve perfect for golf, tennis, fishing, also for business, office, casual,vacation ect.',
         brand: BrandModel(
-            id: '5', image: TImages.jVerLogo, name: 'J.Ver', isFeatured: true),
+            id: '6',
+            image: TImages.esableLogo,
+            name: 'Esabel.C',
+            isFeatured: true),
         images: [
-          TImages.productImage87,
-          TImages.productImage88,
-          TImages.productImage89,
-          TImages.productImage90,
+          TImages.productImage95,
+          TImages.productImage96,
+          TImages.productImage97,
+          TImages.productImage98,
         ],
-        sku: 'ABR4578',
-        categoryId: '3',
+        sku: 'ABR4579',
+        categoryId: '1',
         productAttributes: [
           ProductAttributeModel(
-              name: 'Color', values: ['Black', 'Grey', 'Purple', 'White']),
+              name: 'Color', values: ['Black', 'Blue', 'Green', 'Red']),
           ProductAttributeModel(name: 'Size', values: [
             'L',
             'XL',
@@ -1113,99 +1394,99 @@ class TDummyData {
           ProductVariationModel(
               id: '1',
               stock: 15,
-              price: 24.99,
-              image: TImages.productImage87,
+              price: 19.99,
+              image: TImages.productImage95,
               attributeValues: {'Color': 'Black', 'Size': 'L'}),
           ProductVariationModel(
               id: '2',
               stock: 15,
-              price: 24.99,
-              image: TImages.productImage87,
+              price: 19.99,
+              image: TImages.productImage95,
               attributeValues: {'Color': 'Black', 'Size': 'XL'}),
           ProductVariationModel(
               id: '3',
               stock: 5,
-              price: 24.99,
-              image: TImages.productImage87,
+              price: 19.99,
+              image: TImages.productImage95,
               attributeValues: {'Color': 'Black', 'Size': 'XXL'}),
           ProductVariationModel(
               id: '4',
               stock: 5,
-              price: 24.99,
-              image: TImages.productImage87,
+              price: 19.99,
+              image: TImages.productImage95,
               attributeValues: {'Color': 'Black', 'Size': 'XXXL'}),
           ProductVariationModel(
               id: '5',
               stock: 20,
-              price: 24.99,
-              image: TImages.productImage88,
-              attributeValues: {'Color': 'Grey', 'Size': 'L'}),
+              price: 19.99,
+              image: TImages.productImage96,
+              attributeValues: {'Color': 'Blue', 'Size': 'L'}),
           ProductVariationModel(
               id: '6',
-              price: 24.99,
+              price: 19.99,
               stock: 10,
-              image: TImages.productImage88,
-              attributeValues: {'Color': 'Grey', 'Size': 'XL'}),
+              image: TImages.productImage96,
+              attributeValues: {'Color': 'Blue', 'Size': 'XL'}),
           ProductVariationModel(
               id: '7',
               stock: 20,
-              price: 24.99,
-              image: TImages.productImage88,
-              attributeValues: {'Color': 'Grey', 'Size': 'XXL'}),
+              price: 19.99,
+              image: TImages.productImage96,
+              attributeValues: {'Color': 'Blue', 'Size': 'XXL'}),
           ProductVariationModel(
               id: '8',
-              stock: 20,
-              price: 24.99,
-              image: TImages.productImage88,
-              attributeValues: {'Color': 'Grey', 'Size': 'XXXL'}),
+              stock: 5,
+              price: 19.99,
+              image: TImages.productImage96,
+              attributeValues: {'Color': 'Blue', 'Size': 'XXXL'}),
           ProductVariationModel(
               id: '9',
-              stock: 20,
-              price: 24.99,
-              image: TImages.productImage89,
-              attributeValues: {'Color': 'Purple', 'Size': 'M'}),
+              stock: 10,
+              price: 19.99,
+              image: TImages.productImage97,
+              attributeValues: {'Color': 'Green', 'Size': 'L'}),
           ProductVariationModel(
               id: '10',
-              stock: 10,
-              price: 24.99,
-              image: TImages.productImage89,
-              attributeValues: {'Color': 'Purple', 'Size': 'L'}),
+              stock: 30,
+              price: 19.99,
+              image: TImages.productImage97,
+              attributeValues: {'Color': 'Green', 'Size': 'XL'}),
           ProductVariationModel(
               id: '11',
-              stock: 30,
-              price: 24.99,
-              image: TImages.productImage89,
-              attributeValues: {'Color': 'Purple', 'Size': 'XL'}),
+              stock: 20,
+              price: 19.99,
+              image: TImages.productImage97,
+              attributeValues: {'Color': 'Green', 'Size': 'XXL'}),
           ProductVariationModel(
               id: '12',
-              stock: 20,
-              price: 24.99,
-              image: TImages.productImage89,
-              attributeValues: {'Color': 'Purple', 'Size': 'XXL'}),
+              stock: 5,
+              price: 19.99,
+              image: TImages.productImage97,
+              attributeValues: {'Color': 'Green', 'Size': 'XXXL'}),
           ProductVariationModel(
               id: '13',
               stock: 5,
-              price: 24.99,
-              image: TImages.productImage90,
-              attributeValues: {'Color': 'White', 'Size': 'L'}),
+              price: 19.99,
+              image: TImages.productImage98,
+              attributeValues: {'Color': 'Red', 'Size': 'L'}),
           ProductVariationModel(
               id: '14',
               stock: 11,
-              price: 24.99,
-              image: TImages.productImage90,
-              attributeValues: {'Color': 'White', 'Size': 'XL'}),
+              price: 19.99,
+              image: TImages.productImage98,
+              attributeValues: {'Color': 'Red', 'Size': 'XL'}),
           ProductVariationModel(
               id: '15',
               stock: 20,
-              price: 24.99,
-              image: TImages.productImage90,
-              attributeValues: {'Color': 'White', 'Size': 'XXL'}),
+              price: 19.99,
+              image: TImages.productImage98,
+              attributeValues: {'Color': 'Red', 'Size': 'XXL'}),
           ProductVariationModel(
               id: '16',
-              stock: 20,
-              price: 24.99,
-              image: TImages.productImage90,
-              attributeValues: {'Color': 'White', 'Size': 'XXXL'}),
+              stock: 5,
+              price: 19.99,
+              image: TImages.productImage98,
+              attributeValues: {'Color': 'Red', 'Size': 'XXXL'}),
         ],
         productType: 'ProductType.variable',
         date: DateTime.now()),

@@ -7,7 +7,6 @@ import 'package:ecommerce_app/features/shop/models/category_model.dart';
 import 'package:ecommerce_app/features/shop/screens/all_products/all_products.dart';
 import 'package:ecommerce_app/features/shop/screens/store/widgets/category_brand.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
-import 'package:ecommerce_app/utils/helpers/cloud_helper_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -63,10 +62,14 @@ class _TCategoryTabState extends State<TCategoryTab> {
                     const SizedBox(
                       height: TSizes.spaceBtwItems,
                     ),
-                    TGridLayout(
+                    Obx(() {
+                      return TGridLayout(
                         itemCount: controller.productForCategories.length,
                         itemBuilder: (_, index) => TProductCardVertical(
-                            product: controller.productForCategories[index])),
+                          product: controller.productForCategories[index],
+                        ),
+                      );
+                    })
                   ],
                 );
               }),

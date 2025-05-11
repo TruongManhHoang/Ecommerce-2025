@@ -5,7 +5,7 @@ import 'package:iconsax/iconsax.dart';
 class TProfileMenu extends StatelessWidget {
   const TProfileMenu(
       {super.key,
-       this.icon = Iconsax.arrow_right_34,
+      this.icon = Iconsax.arrow_right_34,
       required this.onPressed,
       required this.title,
       required this.value});
@@ -18,14 +18,26 @@ class TProfileMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child:  Padding(
-        padding: const EdgeInsets.symmetric(vertical:  TSizes.spaceBtwItems / 1.5),
+      child: Padding(
+        padding:
+            const EdgeInsets.symmetric(vertical: TSizes.spaceBtwItems / 1.5),
         child: Row(
           children: [
-            Expanded(flex:3,child: Text(title, style: Theme.of(context).textTheme.bodySmall, overflow: TextOverflow.ellipsis,)),
-            Expanded(flex:5,child: Text(value, style: Theme.of(context).textTheme.bodyMedium, overflow: TextOverflow.ellipsis,)),
-             Expanded(child: Icon(icon, size: 18,))
-
+            Expanded(
+                flex: 3,
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.bodySmall,
+                  overflow: TextOverflow.ellipsis,
+                )),
+            Expanded(
+                flex: 5,
+                child: Text(
+                  value,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  overflow: TextOverflow.ellipsis,
+                )),
+            //  Expanded(child: Icon(icon, size: 18,))
           ],
         ),
       ),

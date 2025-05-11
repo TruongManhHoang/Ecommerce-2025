@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/common/widgets/appbar/app_bar.dart';
 import 'package:ecommerce_app/common/widgets/custom_shapes/container/rounded_container.dart';
-import 'package:ecommerce_app/common/widgets/product/cart/coupon_widget.dart';
 import 'package:ecommerce_app/data/service/stripe_sevice.dart';
 import 'package:ecommerce_app/features/shop/controller/product/cart_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/product/order_controller.dart';
@@ -51,7 +50,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
 
               /// Coupon TextField
-              const TCouponCode(),
+              // const TCouponCode(),
               const SizedBox(
                 height: TSizes.spaceBtwSections,
               ),

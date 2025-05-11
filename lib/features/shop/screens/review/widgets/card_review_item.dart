@@ -45,40 +45,49 @@ class cardReviewItem extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.network(
-                      '${userModel.profilePicture}',
-                      width: 30,
+                      userModel.profilePicture,
+                      width: 35,
                       height: 40,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('${userModel.lastName} ${userModel.firstName}'),
-                      TRatingBarIndicator(
-                        rating: reviewModel.rating,
+                      Row(
+                        children: [
+                          TRatingBarIndicator(
+                            rating: reviewModel.rating,
+                          ),
+                          const Gap(5),
+                          Text(
+                            reviewModel.rating.toString(),
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ],
                       ),
                     ],
                   )
                 ],
               ),
               ReadMoreText(
-                '${reviewModel.comment}',
+                reviewModel.comment,
                 trimLines: 2,
                 trimMode: TrimMode.Line,
                 trimExpandedText: 'show less',
                 trimCollapsedText: 'show more',
-                moreStyle: TextStyle(
+                moreStyle: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: TColors.primary),
-                lessStyle: TextStyle(
+                lessStyle: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: TColors.primary),
               ),
-              Text(
-                  '${THelperFunctions.getFormattedDate(reviewModel.reviewDate)}'),
-              Gap(5),
+              Text(THelperFunctions.getFormattedDate(reviewModel.reviewDate)),
+              const Gap(5),
               ListView.builder(
                 itemCount: reviewModel.items.length,
                 physics: const NeverScrollableScrollPhysics(),
@@ -92,7 +101,7 @@ class cardReviewItem extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
-                          color: dark ? Colors.grey[500] : Colors.white,
+                          color: dark ? Colors.grey[500] : Colors.grey[100],
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Row(
@@ -105,12 +114,12 @@ class cardReviewItem extends StatelessWidget {
                                 fit: BoxFit.contain,
                               ),
                             ),
-                            Gap(10),
+                            const Gap(10),
                             Expanded(
                                 child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('${item.title}'),
+                                Text(item.title),
                                 Text.rich(TextSpan(
                                     children: (item.selectedVariation ?? {})
                                         .entries
@@ -132,7 +141,7 @@ class cardReviewItem extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Gap(TSizes.spaceBtwItems),
+                      const Gap(TSizes.spaceBtwItems),
                     ],
                   );
                 },
@@ -140,7 +149,7 @@ class cardReviewItem extends StatelessWidget {
             ],
           ),
         ),
-        Gap(10)
+        const Gap(TSizes.spaceBtwItems),
       ],
     );
   }

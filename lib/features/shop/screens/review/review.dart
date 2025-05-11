@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/common/widgets/shimmer/comment_shimmer.dart';
 import 'package:ecommerce_app/features/personalization/controllers/user_controller.dart';
 import 'package:ecommerce_app/features/shop/controller/product/review_controller.dart';
 import 'package:ecommerce_app/features/shop/screens/review/widgets/card_review_item.dart';
@@ -51,11 +52,11 @@ class MyReviewScreen extends StatelessWidget {
                   future: userController.fetchUserById(review.userId),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
+                      return const TCommentShimmer();
                     }
 
                     if (!snapshot.hasData) {
-                      return const Text('Error loading user');
+                      return const Text('No reviews yet!');
                     }
 
                     final user = snapshot.data!;
