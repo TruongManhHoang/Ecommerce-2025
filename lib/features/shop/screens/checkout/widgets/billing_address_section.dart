@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/common/widgets/texts/section_heading.dart';
 import 'package:ecommerce_app/features/personalization/controllers/address_controller.dart';
+import 'package:ecommerce_app/features/personalization/controllers/user_controller.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -10,10 +11,10 @@ class TBillingAddressSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final addressController = AddressController.instance;
-
+    final userController = UserController.instance;
     return Obx(() {
       final isSelectAddress = addressController.selectedAddress.value;
-
+      final user = userController.user.value;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -27,7 +28,7 @@ class TBillingAddressSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      isSelectAddress.name,
+                      '${user.lastName} ${user.firstName}',
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const SizedBox(height: TSizes.spaceBtwItems / 2),

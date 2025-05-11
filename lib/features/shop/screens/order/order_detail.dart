@@ -39,6 +39,24 @@ class OrderDetail extends StatelessWidget {
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  'Order Delivery Successfully',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        color: Colors.white,
+                      ),
+                ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: dark ? Colors.grey[800] : Colors.white,
                   borderRadius: BorderRadius.circular(8),
@@ -54,13 +72,13 @@ class OrderDetail extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Giao hàng thành công',
+                      'Shipping Information',
                       style:
                           Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                color: Colors.green,
+                                color: dark ? Colors.white : Colors.black,
                               ),
                     ),
-                    Gap(10),
+                    const Gap(10),
                     Row(
                       children: [
                         const Icon(Iconsax.calendar_1),
@@ -113,7 +131,7 @@ class OrderDetail extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Iconsax.location,
                           size: 20,
                         ),
@@ -136,24 +154,6 @@ class OrderDetail extends StatelessWidget {
                 ),
               ),
               const Gap(TSizes.spaceBtwSections),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    topRight: Radius.circular(8),
-                  ),
-                ),
-                child: Text(
-                  'Order Delivery Successfully',
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: Colors.white,
-                      ),
-                ),
-              ),
 
               ///Order ID
               Container(
@@ -208,7 +208,9 @@ class OrderDetail extends StatelessWidget {
             },
             child: Text(
               'Buy Again',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Colors.white,
+                  ),
             )),
       ),
     );

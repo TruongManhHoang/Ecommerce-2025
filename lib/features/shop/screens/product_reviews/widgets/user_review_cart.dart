@@ -72,6 +72,11 @@ class UserReviewCard extends StatelessWidget {
           Row(
             children: [
               TRatingBarIndicator(rating: reviewModel.rating),
+              const Gap(5),
+              Text(
+                '${reviewModel.rating}',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
               const SizedBox(
                 width: TSizes.spaceBtwItems,
               ),

@@ -1,10 +1,8 @@
 import 'package:ecommerce_app/common/widgets/appbar/app_bar.dart';
-import 'package:ecommerce_app/common/widgets/product/ratings/rating_indicator.dart';
+import 'package:ecommerce_app/common/widgets/shimmer/comment_shimmer.dart';
 import 'package:ecommerce_app/features/personalization/controllers/user_controller.dart';
 import 'package:ecommerce_app/features/personalization/models/userModel.dart';
 import 'package:ecommerce_app/features/shop/controller/product/review_controller.dart';
-import 'package:ecommerce_app/features/shop/models/review_model.dart';
-import 'package:ecommerce_app/features/shop/screens/product_reviews/widgets/rating_progress_indicator.dart';
 import 'package:ecommerce_app/features/shop/screens/product_reviews/widgets/user_review_cart.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +68,7 @@ class ProductReviewScreen extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return const CircularProgressIndicator();
+                          return const TCommentShimmer();
                         }
 
                         if (!snapshot.hasData) {

@@ -45,7 +45,7 @@ class _GeminiBotState extends State<GeminiBot> {
 
     setState(() {
       promt.add(MessageModel(
-        isPrompt: false, // Đây là tin nhắn của chatbot
+        isPrompt: false,
         message: initialText,
         time: DateTime.now(),
       ));
@@ -55,11 +55,11 @@ class _GeminiBotState extends State<GeminiBot> {
 
   Future<void> sendMessage() async {
     final message = proprController.text;
-    if (message.isEmpty) return; // Không gửi tin nhắn rỗng
+    if (message.isEmpty) return;
 
     setState(() {
       promt.add(MessageModel(
-        isPrompt: true, // Đây là tin nhắn của người dùng
+        isPrompt: true, 
         message: message,
         time: DateTime.now(),
       ));
@@ -72,7 +72,7 @@ class _GeminiBotState extends State<GeminiBot> {
 
     setState(() {
       promt.add(MessageModel(
-        isPrompt: false, // Đây là tin nhắn của chatbot
+        isPrompt: false,
         message: response.text ?? "Xin lỗi, tôi chưa hiểu câu hỏi của bạn.",
         time: DateTime.now(),
       ));
@@ -125,7 +125,7 @@ class _GeminiBotState extends State<GeminiBot> {
                     controller: proprController,
                     style: const TextStyle(color: Colors.black, fontSize: 20),
                     decoration: InputDecoration(
-                      hintText: 'Nhập câu trả lời...',
+                      hintText: 'Enter answer...',
                       hintStyle:
                           const TextStyle(color: Colors.grey, fontSize: 18),
                       border: OutlineInputBorder(
@@ -139,7 +139,7 @@ class _GeminiBotState extends State<GeminiBot> {
                   onTap: sendMessage,
                   child: const CircleAvatar(
                     radius: 29,
-                    backgroundColor: Colors.green,
+                    backgroundColor: Colors.blue,
                     child: Icon(
                       Icons.send,
                       color: Colors.white,

@@ -8,29 +8,46 @@ import 'package:iconsax/iconsax.dart';
 
 class TUserProfileTitle extends StatelessWidget {
   const TUserProfileTitle({
-    super.key, required this.onPressed,
+    super.key,
+    required this.onPressed,
   });
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final controller  = UserController.instance;
+    final controller = UserController.instance;
     return ListTile(
-      leading: Obx((){
+      leading: Obx(() {
         final networkImage = controller.user.value.profilePicture;
-        final image =
-        networkImage.isNotEmpty ? networkImage : TImages.user;
-        return  TCircularImage(
+        final image = networkImage.isNotEmpty ? networkImage : TImages.user;
+        return TCircularImage(
           image: image,
           width: 50,
           height: 50,
           padding: 0,
+          fit: BoxFit.cover,
           isNetworkImage: networkImage.isNotEmpty,
         );
       }),
-      title: Text(controller.user.value.fullName,style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.white),),
-      subtitle: Text(controller.user.value.email,style: Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),),
-      trailing: IconButton(onPressed: onPressed, icon: const Icon(Iconsax.edit,color: TColors.white,),),
+      title: Text(
+        controller.user.value.fullName,
+        style: Theme.of(context)
+            .textTheme
+            .headlineSmall!
+            .apply(color: TColors.white),
+      ),
+      subtitle: Text(
+        controller.user.value.email,
+        style:
+            Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),
+      ),
+      trailing: IconButton(
+        onPressed: onPressed,
+        icon: const Icon(
+          Iconsax.edit,
+          color: TColors.white,
+        ),
+      ),
     );
   }
 }

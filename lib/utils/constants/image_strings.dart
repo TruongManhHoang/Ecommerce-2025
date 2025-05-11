@@ -41,6 +41,7 @@ class TImages {
   static const String tacvasenlogo = "assets/icons/brands/tacvasen.png";
   static const String mageMalelogo = "assets/icons/brands/mage_male.jpg";
   static const String jVerLogo = "assets/icons/brands/j_ver.png";
+  static const String esableLogo = "assets/icons/brands/esable.jpg";
 
   // -- Animations
   static const String productsIllustration =
@@ -285,6 +286,24 @@ class TImages {
       "assets/images/products/j_ver_men_shirts_purple.png";
   static const String productImage90 =
       "assets/images/products/j_ver_men_shirts_white.png";
+
+  static const String productImage91 =
+      "assets/images/products/stretch_skinny_chino_pants_black.png";
+  static const String productImage92 =
+      "assets/images/products/stretch_skinny_chino_pants_brown.png";
+  static const String productImage93 =
+      "assets/images/products/stretch_skinny_chino_pants_red.png";
+  static const String productImage94 =
+      "assets/images/products/stretch_skinny_chino_pants_white.png";
+
+  static const String productImage95 =
+      "assets/images/products/esabel_jacquard_golf_shirts_black.png";
+  static const String productImage96 =
+      "assets/images/products/esabel_jacquard_golf_shirts_blue.png";
+  static const String productImage97 =
+      "assets/images/products/esabel_jacquard_golf_shirts_green.png";
+  static const String productImage98 =
+      "assets/images/products/esabel_jacquard_golf_shirts_red.png";
 
   // -- Product Reviews
   static const String userProfileImage1 =

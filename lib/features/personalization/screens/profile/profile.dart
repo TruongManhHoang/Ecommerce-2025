@@ -3,10 +3,11 @@ import 'package:ecommerce_app/common/widgets/images/t_circular_image.dart';
 import 'package:ecommerce_app/common/widgets/shimmer/shimmer_effect.dart';
 import 'package:ecommerce_app/common/widgets/texts/section_heading.dart';
 import 'package:ecommerce_app/features/personalization/controllers/user_controller.dart';
-import 'package:ecommerce_app/features/personalization/screens/profile/widgets/chang_name.dart';
+import 'package:ecommerce_app/features/personalization/screens/profile/widgets/edit_profile.dart';
 import 'package:ecommerce_app/features/personalization/screens/profile/widgets/profile_menu.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
+import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -17,6 +18,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = UserController.instance;
+    final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: const TAppBar(
         showBackArrow: true,
@@ -66,38 +68,23 @@ class ProfileScreen extends StatelessWidget {
               ),
 
               /// Heading profile info
-              const TSectionHeading(
+              TSectionHeading(
                 title: 'Profile Information',
-                showActionButton: false,
+                showActionButton: true,
+                buttonTitle: 'Edit',
+                onPressed: () => Get.to(() => const EditProfile()),
               ),
               const SizedBox(
                 height: TSizes.spaceBtwItems,
               ),
               TProfileMenu(
-                  onPressed: () => Get.to(() => const ChangName()),
+                  onPressed: () {},
                   title: "Name",
                   value: controller.user.value.fullName),
               TProfileMenu(
                   onPressed: () {},
                   title: "Username",
                   value: controller.user.value.userName),
-              const SizedBox(
-                height: TSizes.spaceBtwItems,
-              ),
-              const Divider(),
-              const SizedBox(
-                height: TSizes.spaceBtwItems,
-              ),
-
-              ///Heading personal info
-              const TSectionHeading(
-                title: 'Personal Information',
-                showActionButton: false,
-              ),
-              const SizedBox(
-                height: TSizes.spaceBtwItems,
-              ),
-
               TProfileMenu(
                   onPressed: () {},
                   title: "User ID",
@@ -111,13 +98,29 @@ class ProfileScreen extends StatelessWidget {
                   onPressed: () {},
                   title: "Phone Number",
                   value: controller.user.value.phoneNumber),
-              TProfileMenu(onPressed: () {}, title: "Gender", value: "Marshal"),
-              TProfileMenu(
-                  onPressed: () {}, title: "Data of Birth", value: "Marshal"),
+              const SizedBox(
+                height: TSizes.spaceBtwItems,
+              ),
               const Divider(),
               const SizedBox(
                 height: TSizes.spaceBtwItems,
               ),
+
+              ///Heading personal info
+              // const TSectionHeading(
+              //   title: 'Personal Information',
+              //   showActionButton: false,
+              // ),
+              // const SizedBox(
+              //   height: TSizes.spaceBtwItems,
+              // ),
+
+              // TProfileMenu(onPressed: () {}, title: "Gender", value: ""),
+              // TProfileMenu(onPressed: () {}, title: "Data of Birth", value: ""),
+              // const Divider(),
+              // const SizedBox(
+              //   height: TSizes.spaceBtwItems,
+              // ),
               Center(
                 child: TextButton(
                   onPressed: () => controller.deleteAccountWarningPopup(),
