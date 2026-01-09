@@ -224,8 +224,6 @@ class DioClient {
 
 //clean token
 
-
-
 // class LoggingInterceptor extends Interceptor {
 //   LoggingInterceptor();
 //
