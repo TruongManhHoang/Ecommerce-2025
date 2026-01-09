@@ -10,6 +10,7 @@ import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 
 class TProductImageSlider extends StatelessWidget {
   const TProductImageSlider({
@@ -90,6 +91,8 @@ class TProductImageSlider extends StatelessWidget {
               ),
             ),
             TAppBar(
+              leadingOnPressed: () => Get.back(),
+              leadingIcon: Iconsax.arrow_left_11,
               showBackArrow: true,
               actions: [
                 TFavouriteIcon(

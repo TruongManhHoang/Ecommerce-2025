@@ -1,4 +1,4 @@
-  {
+{
   "project_info": {
     "project_number": "574094765532",
     "project_id": "ecommerce-app-ffccc",
@@ -29,6 +29,165 @@
             {
               "client_id": "574094765532-3i04mrie31e58ajjljvl9v2se2jv0f5t.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "574094765532-f581ktjiobjo55n2cagm57prpks5upvn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nestoStore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574094765532:android:a8c47cb1f87fae67a8f319",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce_app_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574094765532-vi9an3i85a397ed80g01ujije4ovebep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ecommerce_app_admin",
+            "certificate_hash": "72fc575105b7aeab2518d7fc52b8eb4586e35777"
+          }
+        },
+        {
+          "client_id": "574094765532-3i04mrie31e58ajjljvl9v2se2jv0f5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFyh6gMuDPPCLrhc2_tlWijwy1nj-rcLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574094765532-3i04mrie31e58ajjljvl9v2se2jv0f5t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574094765532-f581ktjiobjo55n2cagm57prpks5upvn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nestoStore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574094765532:android:4385dbd68ab8ed51a8f319",
+        "android_client_info": {
+          "package_name": "com.example.flutter_ecommerce_2025"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574094765532-3i04mrie31e58ajjljvl9v2se2jv0f5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFyh6gMuDPPCLrhc2_tlWijwy1nj-rcLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574094765532-3i04mrie31e58ajjljvl9v2se2jv0f5t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574094765532-f581ktjiobjo55n2cagm57prpks5upvn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nestoStore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574094765532:android:73884324c174b00aa8f319",
+        "android_client_info": {
+          "package_name": "com.example.nesto_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574094765532-3i04mrie31e58ajjljvl9v2se2jv0f5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFyh6gMuDPPCLrhc2_tlWijwy1nj-rcLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574094765532-3i04mrie31e58ajjljvl9v2se2jv0f5t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574094765532-f581ktjiobjo55n2cagm57prpks5upvn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nestoStore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574094765532:android:c74795b48565c3d0a8f319",
+        "android_client_info": {
+          "package_name": "com.nestostore.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574094765532-3i04mrie31e58ajjljvl9v2se2jv0f5t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFyh6gMuDPPCLrhc2_tlWijwy1nj-rcLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574094765532-3i04mrie31e58ajjljvl9v2se2jv0f5t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574094765532-f581ktjiobjo55n2cagm57prpks5upvn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nestoStore"
+              }
             }
           ]
         }
