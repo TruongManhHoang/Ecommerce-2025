@@ -21,6 +21,7 @@ class BrandController extends GetxController {
     super.onInit();
   }
 
+  // Get Featured Brands
   Future<void> getFeaturedBrands() async {
     try {
       isLoading.value = true;
