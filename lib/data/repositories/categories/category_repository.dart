@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce_app/data/repositories/products/product_repository.dart';
 import 'package:ecommerce_app/data/service/firebase_storage_service.dart';
 import 'package:ecommerce_app/features/shop/models/category_model.dart';
-import 'package:ecommerce_app/features/shop/models/product_model.dart';
 import 'package:ecommerce_app/utils/exceptions/firebase_exceptions.dart';
 import 'package:ecommerce_app/utils/exceptions/format_exceptions.dart';
 import 'package:ecommerce_app/utils/exceptions/platform_exceptions.dart';

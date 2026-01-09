@@ -17,7 +17,7 @@ class StripeService {
     try {
       await Stripe.instance.presentPaymentSheet();
       return true; // Thanh toán thành công
-    } on StripeException catch (e) {
+    } on StripeException {
       TLoaders.errorSnackBar(
           title: 'Empty Cart', message: 'Payment Cancelled.');
       return false;
@@ -33,7 +33,7 @@ class StripeService {
       final response = await http.post(
         Uri.parse('https://api.stripe.com/v1/payment_intents'),
         headers: {
-          'Authorization': 'Bearer $STRIPE_SECRET_KEY',
+          'Authorization': 'Bearer $stripeSecretKey',
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: {

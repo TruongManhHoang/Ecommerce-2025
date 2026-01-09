@@ -60,7 +60,7 @@ class MyReviewScreen extends StatelessWidget {
                     }
 
                     final user = snapshot.data!;
-                    return cardReviewItem(
+                    return CardReviewItem(
                       dark: dark,
                       reviewModel: review,
                       userModel: user,

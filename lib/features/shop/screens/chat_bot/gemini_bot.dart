@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/features/shop/models/message_model.dart';
 import 'package:ecommerce_app/features/shop/screens/chat_bot/widgets/user_prompt_item.dart';
-import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:iconsax/iconsax.dart';

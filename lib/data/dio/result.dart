@@ -4,8 +4,12 @@ part 'result.g.dart';
 
 @JsonSerializable()
 class Result {
-  Result({ this.typeError, this.message, this.data, this.meta, this.status = "Error"});
-
+  Result(
+      {this.typeError,
+      this.message,
+      this.data,
+      this.meta,
+      this.status = "Error"});
 
   final String status;
   final String? typeError;
@@ -27,7 +31,15 @@ class Meta {
   int? notifyUnreadCompanyCount;
   int? notifyUnreadGlobalCount;
 
-  Meta({this.totalItems, this.pageSize, this.currentPage, this.totalPages, this.notifyUnreadPersonalCount, this.notifyUnreadDeptCount, this.notifyUnreadCompanyCount, this.notifyUnreadGlobalCount});
+  Meta(
+      {this.totalItems,
+      this.pageSize,
+      this.currentPage,
+      this.totalPages,
+      this.notifyUnreadPersonalCount,
+      this.notifyUnreadDeptCount,
+      this.notifyUnreadCompanyCount,
+      this.notifyUnreadGlobalCount});
 
   factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
   Map<String, dynamic> toJson() => _$MetaToJson(this);

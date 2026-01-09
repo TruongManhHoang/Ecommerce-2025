@@ -1,7 +1,6 @@
 import 'package:ecommerce_app/data/models/dummy_data.dart';
 import 'package:ecommerce_app/data/repositories/banners/banner_repository.dart';
 import 'package:ecommerce_app/features/shop/models/banner_model.dart';
-import 'package:ecommerce_app/features/shop/models/product_model.dart';
 import 'package:ecommerce_app/utils/popups/loaders.dart';
 import 'package:get/get.dart';
 
@@ -47,7 +46,6 @@ class BannerController extends GetxController {
           message: 'Your Dummy Data has been updated!');
     } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
-      print('error : $e');
     }
   }
 }

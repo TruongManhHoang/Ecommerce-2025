@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/common/widgets/layouts/grid_layout.dart';
 import 'package:ecommerce_app/common/widgets/shimmer/shimmer_effect.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,7 @@ class TCommentShimmer extends StatelessWidget {
         shrinkWrap: true,
         itemCount: itemCount,
         itemBuilder: (_, __) {
-          return Column(
+          return const Column(
             children: [
               TShimmerEffect(width: double.infinity, height: 200),
               Gap(TSizes.spaceBtwItems)

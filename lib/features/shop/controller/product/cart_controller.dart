@@ -2,7 +2,6 @@ import 'package:ecommerce_app/domain/repository/cart/cart_repository.dart';
 import 'package:ecommerce_app/features/shop/controller/product/variation_controller.dart';
 import 'package:ecommerce_app/features/shop/models/cart_item_model.dart';
 import 'package:ecommerce_app/features/shop/models/product_model.dart';
-import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/enums.dart';
 import 'package:ecommerce_app/utils/local_storage/storage_utility.dart';
 import 'package:ecommerce_app/utils/popups/loaders.dart';

@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({
     super.key,
-    this.image,
-    this.title,
-    this.subTitle,
+    required this.image,
+    required this.title,
+    required this.subTitle,
   });
 
-  final image, title, subTitle;
+  final String image;
+  final String title;
+  final String subTitle;
 
   @override
   Widget build(BuildContext context) {

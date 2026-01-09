@@ -12,7 +12,7 @@ class BrandController extends GetxController {
   RxList<BrandModel> allBrands = <BrandModel>[].obs;
   RxList<BrandModel> featuredBrands = <BrandModel>[].obs;
   RxList<ProductModel> productForBrand = <ProductModel>[].obs;
-  RxList<BrandModel> BrandForCategory = <BrandModel>[].obs;
+  RxList<BrandModel> brandForCategory = <BrandModel>[].obs;
   final brandRepository = Get.put(BrandRepository());
 
   @override
@@ -43,7 +43,6 @@ class BrandController extends GetxController {
           message: 'Your Dummy Data has been updated!');
     } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
-      print('error : $e');
     }
   }
 
@@ -57,7 +56,6 @@ class BrandController extends GetxController {
           message: 'Your Dummy Data has been updated!');
     } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
-      print('error : $e');
     }
   }
 
@@ -65,7 +63,7 @@ class BrandController extends GetxController {
   Future<List<BrandModel>> getBrandsForCategory(String categoryId) async {
     try {
       final brands = await brandRepository.getBrandsForCategory(categoryId);
-      BrandForCategory.assignAll(brands);
+      brandForCategory.assignAll(brands);
       return brands;
     } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());

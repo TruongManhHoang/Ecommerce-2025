@@ -3,7 +3,6 @@ import 'package:ecommerce_app/data/repositories/products/product_repository.dart
 import 'package:ecommerce_app/features/shop/models/product_model.dart';
 import 'package:ecommerce_app/utils/constants/enums.dart';
 import 'package:ecommerce_app/utils/popups/loaders.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 class ProductController extends GetxController {
@@ -125,15 +124,12 @@ class ProductController extends GetxController {
 
   uploadDummyDataProducts() async {
     try {
-      //Fetch Banner
-
-      await productRepository.uploadDummyData(TDummyData.products);
+      // await productRepository.uploadDummyDataProduct(TDummyData.products);
       TLoaders.successSnackBar(
           title: 'Congratulations',
           message: 'Your Dummy Data has been updated!');
     } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
-      print('error : $e');
     }
   }
 
@@ -147,7 +143,6 @@ class ProductController extends GetxController {
           message: 'Your Dummy Data has been updated!');
     } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
-      print('error : $e');
     }
   }
 }

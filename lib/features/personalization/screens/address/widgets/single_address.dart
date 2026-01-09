@@ -28,7 +28,7 @@ class TSingAddress extends StatelessWidget {
           showBorder: true,
           padding: const EdgeInsets.all(TSizes.md),
           backgroundColor: selectedAddress
-              ? TColors.primary.withOpacity(0.5)
+              ? TColors.primary.withValues(alpha: 0.5)
               : Colors.transparent,
           borderColor: selectedAddress
               ? Colors.transparent

@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/common/widgets/appbar/app_bar.dart';
 import 'package:ecommerce_app/common/widgets/shimmer/comment_shimmer.dart';
 import 'package:ecommerce_app/features/personalization/controllers/user_controller.dart';
-import 'package:ecommerce_app/features/personalization/models/userModel.dart';
+import 'package:ecommerce_app/features/personalization/models/user_model.dart';
 import 'package:ecommerce_app/features/shop/controller/product/review_controller.dart';
 import 'package:ecommerce_app/features/shop/screens/product_reviews/widgets/user_review_cart.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
@@ -14,7 +14,7 @@ class ProductReviewScreen extends StatelessWidget {
     super.key,
     this.productId,
   });
-  final productId;
+  final String? productId;
   final reviewController = ReviewController.instance;
   final userController = UserController.instance;
   @override
@@ -60,8 +60,6 @@ class ProductReviewScreen extends StatelessWidget {
                     final matchedItem = review.items.firstWhere(
                       (item) => item.productId == productId,
                     );
-
-                    if (matchedItem == null) return const SizedBox();
 
                     return FutureBuilder<UserModel>(
                       future: userController.fetchUserById(review.userId),

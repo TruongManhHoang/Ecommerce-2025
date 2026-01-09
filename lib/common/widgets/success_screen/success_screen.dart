@@ -24,7 +24,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
-      DialogReview.showReviewDialog(context);
+      if (mounted) {
+        DialogReview.showReviewDialog(context);
+      }
     });
   }
 
