@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+// ignore_for_file: unused_element
 part 'result.g.dart';
 
 @JsonSerializable()
