@@ -3,12 +3,11 @@ import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+
 class TCouponCode extends StatelessWidget {
   const TCouponCode({
     super.key,
   });
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +16,7 @@ class TCouponCode extends StatelessWidget {
       showBorder: true,
       backgroundColor: dark ? TColors.dark : TColors.white,
       padding: const EdgeInsets.only(
-          top: TSizes.sm,
-          bottom: TSizes.sm,
-          right: TSizes.sm,
-          left: TSizes.sm),
+          top: TSizes.sm, bottom: TSizes.sm, right: TSizes.sm, left: TSizes.sm),
       child: Row(
         children: [
           ///Text Field
@@ -44,10 +40,12 @@ class TCouponCode extends StatelessWidget {
               child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                      foregroundColor: dark ? TColors.white.withOpacity(0.5): TColors.dark.withOpacity(0.5),
-                      backgroundColor: Colors.grey.withOpacity(0.2),
-                      side: BorderSide(color: Colors.grey.withOpacity(0.1))
-                  ),
+                      foregroundColor: dark
+                          ? TColors.white.withValues(alpha: 0.5)
+                          : TColors.dark.withValues(alpha: 0.5),
+                      backgroundColor: Colors.grey.withValues(alpha: 0.2),
+                      side: BorderSide(
+                          color: Colors.grey.withValues(alpha: 0.1))),
                   child: const Text('Apply'))),
         ],
       ),

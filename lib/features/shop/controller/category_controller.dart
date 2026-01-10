@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:ecommerce_app/data/models/dummy_data.dart';
 import 'package:ecommerce_app/data/repositories/categories/category_repository.dart';
 import 'package:ecommerce_app/data/repositories/products/product_repository.dart';
@@ -96,7 +94,6 @@ class CategoryController extends GetxController {
           message: 'Your Dummy Data has been updated!');
     } catch (e) {
       TLoaders.errorSnackBar(title: 'On Snap!', message: e.toString());
-      print('error : $e');
     }
   }
 }

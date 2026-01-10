@@ -28,13 +28,13 @@ class TSingAddress extends StatelessWidget {
           showBorder: true,
           padding: const EdgeInsets.all(TSizes.md),
           backgroundColor: selectedAddress
-              ? TColors.primary.withOpacity(0.5)
+              ? TColors.primary.withValues(alpha: 0.5)
               : Colors.transparent,
           borderColor: selectedAddress
               ? Colors.transparent
               : dark
-              ? TColors.darkerGrey
-              : TColors.grey,
+                  ? TColors.darkerGrey
+                  : TColors.grey,
           margin: const EdgeInsets.only(bottom: TSizes.spaceBtwItems),
           child: Stack(
             children: [
@@ -45,24 +45,35 @@ class TSingAddress extends StatelessWidget {
                   selectedAddress ? Iconsax.tick_circle5 : null,
                   color: selectedAddress
                       ? dark
-                      ? TColors.light
-                      : TColors.dark
+                          ? TColors.light
+                          : TColors.dark
                       : null,
                 ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(address.name, maxLines: 1,
+                  Text(
+                    address.name,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleLarge,),
-                  const SizedBox(height: TSizes.sm / 2,),
-                  Text(address.formattedPhoneNo, maxLines: 1,overflow: TextOverflow.ellipsis,),
-                  const SizedBox(height: TSizes.sm / 2,),
-                   Text(address.toString(), softWrap: true,),
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(
+                    height: TSizes.sm / 2,
+                  ),
+                  Text(
+                    address.formattedPhoneNo,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(
+                    height: TSizes.sm / 2,
+                  ),
+                  Text(
+                    address.toString(),
+                    softWrap: true,
+                  ),
                 ],
               )
             ],

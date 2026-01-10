@@ -3,7 +3,6 @@ import 'package:ecommerce_app/common/widgets/login_signup/social_buttons.dart';
 import 'package:ecommerce_app/features/authentication/screens/signup/widgets/sign_up_form.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:ecommerce_app/utils/constants/text_strings.dart';
-import 'package:ecommerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -11,7 +10,6 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -54,4 +52,3 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 }
-

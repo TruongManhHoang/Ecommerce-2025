@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/common/widgets/product/ratings/rating_indicator.dart';
-import 'package:ecommerce_app/features/personalization/models/userModel.dart';
+import 'package:ecommerce_app/features/personalization/models/user_model.dart';
 import 'package:ecommerce_app/features/shop/models/review_model.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';
@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:readmore/readmore.dart';
 
-class cardReviewItem extends StatelessWidget {
-  const cardReviewItem({
+class CardReviewItem extends StatelessWidget {
+  const CardReviewItem({
     super.key,
     required this.dark,
     required this.reviewModel,

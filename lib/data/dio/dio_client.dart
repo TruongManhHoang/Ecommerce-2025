@@ -6,6 +6,7 @@ import 'package:ecommerce_app/core/I10n/local/hive_storage.dart';
 import 'package:ecommerce_app/utils/constants/api_constants.dart';
 import 'package:ecommerce_app/utils/exceptions/log_dio_exception.dart';
 import 'package:flutter/foundation.dart';
+import 'package:logger/logger.dart';
 
 class DioClient {
   late Dio _dio;
@@ -37,23 +38,25 @@ class DioClient {
         options.headers['Authorization'] = 'Bearer $token';
       }
       // if (kDebugMode) {
-      print('Request: ${options.method} ${options.path}');
-      print('Request Headers: ${options.headers}');
-      print('Request Data: ${options.data}');
+      if (kDebugMode) {
+        Logger().d('Request: ${options.method} ${options.path}');
+        Logger().d('Request Headers: ${options.headers}');
+        Logger().d('Request Data: ${options.data}');
+      }
       // }
 
       return handler.next(options);
     }, onResponse: (response, handler) {
       if (kDebugMode) {
-        print('Response Status Code: ${response.statusCode}');
-        print('Response Data: ${response.data}');
+        Logger().d('Response Status Code: ${response.statusCode}');
+        Logger().d('Response Data: ${response.data}');
       }
 
       return handler.next(response);
     }, onError: (DioException error, handler) {
       if (kDebugMode) {
-        print("Error intercepted: ${error.response?.statusCode}");
-        print("Error response: ${error.response?.data}");
+        Logger().e('Error intercepted: ${error.response?.statusCode}');
+        Logger().e('Error response: ${error.response?.data}');
       }
       handler.next(error);
     }));
@@ -69,15 +72,6 @@ class DioClient {
         return client;
       },
     );
-
-    //clean token
-    void cleanToken(String newToken) {
-      if (newToken == null || newToken.isEmpty) {
-        _dio.options.headers.remove('Authorization');
-      } else {
-        _dio.options.headers['Authorization'] = 'Bearer $newToken';
-      }
-    }
   }
 
   Future<Map<String, dynamic>> get(
@@ -229,8 +223,6 @@ class DioClient {
 }
 
 //clean token
-
-
 
 // class LoggingInterceptor extends Interceptor {
 //   LoggingInterceptor();

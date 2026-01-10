@@ -18,7 +18,7 @@ class StoreScreen extends StatefulWidget {
   const StoreScreen({super.key});
 
   @override
-  _StoreScreenState createState() => _StoreScreenState();
+  State<StoreScreen> createState() => _StoreScreenState();
 }
 
 class _StoreScreenState extends State<StoreScreen>

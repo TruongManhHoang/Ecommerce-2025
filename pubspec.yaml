@@ -46,6 +46,7 @@ dependencies:
   hive_flutter: ^1.1.0
   gap: ^3.0.1
   get_storage: ^2.1.1
+  json_annotation: ^4.9.0
   # easy_localization: ^3.0.7+1
   i10n_translator: ^2.2.1
   flutter_launcher_icons: ^0.14.3

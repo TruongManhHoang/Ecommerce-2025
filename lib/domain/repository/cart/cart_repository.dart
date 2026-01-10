@@ -10,8 +10,8 @@ class CartRepository {
         .collection('cart')
         .doc(product.productId)
         .set(product.toJson())
-        .then((value) => print("Product Added to Cart"))
-        .catchError((error) => print("Failed to add product: $error"));
+        .then((value) => null)
+        .catchError((error) => null);
   }
 
   Future<void> removeProductFromCart(
@@ -24,8 +24,8 @@ class CartRepository {
         .collection('cart')
         .doc(productId)
         .delete()
-        .then((value) => print("Product Removed from Cart"))
-        .catchError((error) => print("Failed to remove product: $error"));
+        .then((value) => null)
+        .catchError((error) => null);
   }
 
   Future<List<CartItemModel>> getCartProducts(String userId) {
@@ -37,6 +37,6 @@ class CartRepository {
         .then((snapshot) => snapshot.docs
             .map((doc) => CartItemModel.fromSnapshot(doc))
             .toList())
-        .catchError((error) => print("Failed to get cart products: $error"));
+        .catchError((error) => <CartItemModel>[]);
   }
 }

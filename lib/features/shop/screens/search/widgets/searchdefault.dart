@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/features/shop/controller/product/product_controller.dart';
-import 'package:ecommerce_app/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -22,7 +21,7 @@ class Searchdefault extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: Colors.grey.withOpacity(0.5),
+                      color: Colors.grey.withValues(alpha: 0.5),
                       width: 1,
                     ),
                   ),

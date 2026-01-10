@@ -21,12 +21,9 @@ Future<void> main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   //Todo: Initialize Firebase
 
-  // Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY'] ?? '';
-  Stripe.publishableKey = STRIPE_PUBLISHABLE_KEY;
+  // Stripe.publishableKey = dotenv.env['stripePublishableKey'] ?? '';
+  Stripe.publishableKey = stripePublishableKey;
   // await Stripe.instance.applySettings();
-
-  FirebaseOptions firebaseOptions = DefaultFirebaseOptions.currentPlatform;
-// ...
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

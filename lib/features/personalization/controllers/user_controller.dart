@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/data/repositories/authentication/authentication_repository.dart';
 import 'package:ecommerce_app/data/repositories/user/user_repository.dart';
 import 'package:ecommerce_app/features/authentication/screens/login/login.dart';
-import 'package:ecommerce_app/features/personalization/models/userModel.dart';
+import 'package:ecommerce_app/features/personalization/models/user_model.dart';
 import 'package:ecommerce_app/features/personalization/screens/profile/widgets/re_authenticate_user_login_form.dart';
 import 'package:ecommerce_app/utils/constants/image_strings.dart';
 import 'package:ecommerce_app/utils/constants/sizes.dart';

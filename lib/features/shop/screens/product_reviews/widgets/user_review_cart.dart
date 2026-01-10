@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/common/widgets/images/t_circular_image.dart';
 import 'package:ecommerce_app/common/widgets/product/ratings/rating_indicator.dart';
-import 'package:ecommerce_app/features/personalization/models/userModel.dart';
+import 'package:ecommerce_app/features/personalization/models/user_model.dart';
 import 'package:ecommerce_app/features/shop/models/cart_item_model.dart';
 import 'package:ecommerce_app/features/shop/models/review_model.dart';
 import 'package:ecommerce_app/utils/constants/colors.dart';
@@ -17,7 +17,7 @@ class UserReviewCard extends StatelessWidget {
       required this.userModel,
       this.productId,
       required this.cartItemModel});
-  final productId;
+  final String? productId;
   final ReviewModel reviewModel;
   final CartItemModel cartItemModel;
   final UserModel userModel;
@@ -96,11 +96,11 @@ class UserReviewCard extends StatelessWidget {
             trimMode: TrimMode.Line,
             trimExpandedText: 'show less',
             trimCollapsedText: 'show more',
-            moreStyle: TextStyle(
+            moreStyle: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: TColors.primary),
-            lessStyle: TextStyle(
+            lessStyle: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: TColors.primary),
@@ -109,7 +109,7 @@ class UserReviewCard extends StatelessWidget {
             height: TSizes.spaceBtwItems,
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             decoration: BoxDecoration(
               color: dark ? Colors.grey[700] : Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -124,12 +124,12 @@ class UserReviewCard extends StatelessWidget {
                     fit: BoxFit.contain,
                   ),
                 ),
-                Gap(10),
+                const Gap(10),
                 Expanded(
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${cartItemModel.title}'),
+                    Text(cartItemModel.title),
                     Text.rich(TextSpan(
                         children: (cartItemModel.selectedVariation ?? {})
                             .entries
